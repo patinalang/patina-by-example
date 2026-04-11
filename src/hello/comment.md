@@ -1,6 +1,6 @@
 # Comments
 
-Any program requires comments, and Rust supports
+Any program requires comments, and Patina supports
 a few different varieties:
 
 ## Regular Comments
@@ -10,13 +10,15 @@ These are ignored by the compiler:
 * **Line comments**: Start with `//` and continue to the end of the line
 * **Block comments**: Enclosed in `/* ... */` and can span multiple lines
 
-## Documentation Comments (Doc Comments) which are parsed into HTML library [documentation][docs]:
+## Documentation Comments
+
+These are exported to the generated BEAM modules:
 
  - `///` - Generates docs for the item that follows it
 - `//!` - Generates docs for the enclosing item (typically used at the top of a file or module)
-```rust,editable
 
-fn main() {
+```rust,ignore,editable
+pub fn main() {
     // Line comments start with two slashes.
     // Everything after the slashes is ignored by the compiler.
 
@@ -53,9 +55,3 @@ fn main() {
     println!("Is `x` 10 or 100? x = {}", x);
 }
 ```
-
-### See also:
-
-[Library documentation][docs]
-
-[docs]: ../meta/doc.md

@@ -21,8 +21,8 @@ impl <A, D> MyTrait<A, D> for YourType where
 * When using a `where` clause is more expressive than using normal syntax.
 The `impl` in this example cannot be directly expressed without a `where` clause:
 
-```rust,editable
-use std::fmt::Debug;
+```rust,ignore,editable
+use Std::Fmt::Debug;
 
 trait PrintInOption {
     fn print_in_option(self);
@@ -39,17 +39,16 @@ impl<T> PrintInOption for T where
     }
 }
 
-fn main() {
-    let vec = vec![1, 2, 3];
+pub fn main() {
+    let list = [1, 2, 3];
 
-    vec.print_in_option();
+    list.print_in_option();
 }
 ```
 
 ### See also:
 
-[RFC][where], [`struct`][struct], and [`trait`][trait]
+[`struct`][struct], and [`trait`][trait]
 
 [struct]: ../custom_types/structs.md
 [trait]: ../trait.md
-[where]: https://github.com/rust-lang/rfcs/blob/master/text/0135-where.md

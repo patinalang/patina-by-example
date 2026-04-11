@@ -2,7 +2,7 @@
 
 The `use` declaration can be used to avoid typing the full module path to access a name:
 
-```rust,editable
+```rust,ignore,editable
 // An attribute to hide warnings for unused code.
 #![allow(dead_code)]
 
@@ -16,7 +16,7 @@ enum Role {
     Teacher,
 }
 
-fn main() {
+pub fn main() {
     // Explicitly `use` each name so they are available without
     // manual scoping.
     use Stage::{Beginner, Advanced};

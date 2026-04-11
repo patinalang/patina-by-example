@@ -1,15 +1,22 @@
 # Primitives
 
-Rust provides access to a wide variety of `primitives`. A sample includes:
+Patina provides access to a variety of `primitives`, most of them mapping directly to [BEAM
+primitive types][BEAM data types]. A sample includes:
 
 ### Scalar Types
 
-* Signed integers: `i8`, `i16`, `i32`, `i64`, `i128` and `isize` (pointer size)
-* Unsigned integers: `u8`, `u16`, `u32`, `u64`, `u128` and `usize` (pointer
-  size)
-* Floating point: `f32`, `f64`
-* `char` Unicode scalar values like `'a'`, `'α'` and `'∞'` (4 bytes each)
+* `atom` Literal constants with name
+* `int` Signed variable-size integers (up to 2^(2^31))
+* `float` Floating point values (64-bit)
+* `char` Unicode scalar values like `'a'`, `'α'` and `'∞'`
 * `bool` either `true` or `false`
+<!-- Patina TODO * `byte` Single byte values in 0-255 range -->
+* `bits` [Bit String][bitstring] - a contiguous store of a number of bits not
+  necessarily divisible by 8
+* `bin` Binary; a subtype of `bits` with length divisible by 8
+* `str` UTF-8 encoded string; a subtype of `bin`
+* `fnref()` Stateless function reference, similar to Elixir's `&Foo.bar/1`
+* `fn()` Callable function, may be a stateless reference or a closure
 * The unit type `()`, whose only possible value is an empty tuple: `()`
 
 Despite the value of a unit type being a tuple, it is not considered a compound
@@ -17,31 +24,25 @@ type because it does not contain multiple values.
 
 ### Compound Types
 
-* Arrays like `[1, 2, 3]`
+* Lists like `[1, 2, 3]`
 * Tuples like `(1, true)`
+* Maps like `#{"foo" => 1, "bar" => 2}`
 
-Variables can always be *type annotated*. Numbers may additionally be annotated
-via a *suffix* or *by default*. Integers default to `i32` and floats to `f64`.
-Note that Rust can also infer types from context.
+Variables can always be *type annotated*.
+Note that Patina can also infer types from context.
 
-```rust,editable,ignore,mdbook-runnable
-fn main() {
+```rust,editable,ignore
+pub fn main() {
     // Variables can be type annotated.
-    let logical: bool = true;
-
-    let a_float: f64 = 1.0;  // Regular annotation
-    let an_integer   = 5i32; // Suffix annotation
-
-    // Or a default will be used.
-    let default_float   = 3.0; // `f64`
-    let default_integer = 7;   // `i32`
+    let logical: bool  = true;
+    let a_float: float = 1.0;
 
     // A type can also be inferred from context.
-    let mut inferred_type = 12; // Type i64 is inferred from another line.
-    inferred_type = 4294967296i64;
+    let inferred_type = 12; // Type float is inferred from another line.
+    inferred_type = add_floats(inferred_type, 3.14)
 
-    // A mutable variable's value can be changed.
-    let mut mutable = 12; // Mutable `i32`
+    // A mutable variable's value can be changed - rebound to a new value.
+    let mut mutable = 12; // Mutable `int`
     mutable = 21;
 
     // Error! The type of a variable can't be changed.
@@ -50,23 +51,48 @@ fn main() {
     // Variables can be overwritten with shadowing.
     let mutable = true;
 
-    /* Compound types - Array and Tuple */
+    /* Compound types - List, Tuple and Maps */
 
-    // Array signature consists of Type T and length as [T; length].
-    let my_array: [i32; 5] = [1, 2, 3, 4, 5];
+    // List's signature consists of type T as [T].
+    let my_list: [int] = [1, 2, 3, 4, 5];
 
     // Tuple is a collection of values of different types
     // and is constructed using parentheses ().
-    let my_tuple = (5u32, 1u8, true, -5.04f32);
+    let my_tuple = (5, true, -5.04);
+
+    // Map's signature consists of Key type K and Value type V as #{K => V}
+    let my_map: #{float => str} = #{3.14 => "pi", 0 => "zero"}
+
+    /* Function types */
+
+    let add_ref: fnref(float, float) -> float = add_float;
+    // fnref is implicitly convertible to fn
+    let add_fn: fn(float, float) -> float = add_ref;
+}
+
+fn add_floats(a: float, b: float) -> float {
+    a + b
 }
 ```
 
+### Runtime representation
+
+* `bits`, `bin` and `str` are all the same Erlang binary data type.
+  While some values of these types are distinguishable (an Erlang binary that
+  doesn't contain valid UTF-8 data is definitely not a `str`), in general you
+  can't rely on runtime checks to differentiate a `bin` from a `str` or `bits`.
+
+* `char` values are represented by single integers
+<!-- Patina TODO * `byte` values are represented by single integers in the 0-255 range -->
+* `bool` values are represented as atoms `a"true"` and `a"false"`
+* all of the other primitive types are directly represented in BEAM
+
 ### See also:
 
-[the `std` library][std], [`mut`][mut], [`inference`][inference], and
-[`shadowing`][shadowing]
+[`mut`][mut], [`inference`][inference], and [`shadowing`][shadowing]
 
-[std]: https://doc.rust-lang.org/std/
 [mut]: variable_bindings/mut.md
 [inference]: types/inference.md
 [shadowing]: variable_bindings/scope.md
+[BEAM data types]: https://www.erlang.org/doc/system/data_types.html
+[bitstring]: https://www.erlang.org/doc/system/data_types.html#bit-strings-and-binaries

@@ -3,24 +3,24 @@
 The most basic way of handling mixed error types is to just embed them in each
 other.
 
-```rust,editable
-use std::num::ParseIntError;
+```rust,ignore,editable
+use Std::Num::ParseIntError;
 
-fn double_first(vec: Vec<&str>) -> Option<Result<i32, ParseIntError>> {
-    vec.first().map(|first| {
-        first.parse::<i32>().map(|n| 2 * n)
+fn double_first(list: [str]) -> Option<Result<int, ParseIntError>> {
+    list.first().map(|first| {
+        first.parse::<int>().map(|n| 2 * n)
     })
 }
 
-fn main() {
-    let numbers = vec!["42", "93", "18"];
-    let empty = vec![];
-    let strings = vec!["tofu", "93", "18"];
+pub fn main() {
+    let numbers = ["42", "93", "18"];
+    let empty = [];
+    let strings = ["tofu", "93", "18"];
 
     println!("The first doubled is {:?}", double_first(numbers));
 
     println!("The first doubled is {:?}", double_first(empty));
-    // Error 1: the input vector is empty
+    // Error 1: the input list is empty
 
     println!("The first doubled is {:?}", double_first(strings));
     // Error 2: the element doesn't parse to a number
@@ -30,21 +30,21 @@ fn main() {
 There are times when we'll want to stop processing on errors (like with
 [`?`][enter_question_mark]) but keep going when the `Option` is `None`. The `transpose` function comes in handy to swap the `Result` and `Option`.
 
-```rust,editable
-use std::num::ParseIntError;
+```rust,ignore,editable
+use Std::Num::ParseIntError;
 
-fn double_first(vec: Vec<&str>) -> Result<Option<i32>, ParseIntError> {
-    let opt = vec.first().map(|first| {
-        first.parse::<i32>().map(|n| 2 * n)
+fn double_first(list: [str]) -> Result<Option<int>, ParseIntError> {
+    let opt = list.first().map(|first| {
+        first.parse::<int>().map(|n| 2 * n)
     });
 
     opt.transpose()
 }
 
-fn main() {
-    let numbers = vec!["42", "93", "18"];
-    let empty = vec![];
-    let strings = vec!["tofu", "93", "18"];
+pub fn main() {
+    let numbers = ["42", "93", "18"];
+    let empty = [];
+    let strings = ["tofu", "93", "18"];
 
     println!("The first doubled is {:?}", double_first(numbers));
     println!("The first doubled is {:?}", double_first(empty));

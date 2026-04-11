@@ -1,8 +1,8 @@
 # enums
 
-An `enum` is destructured similarly:
+An [`enum`][enum] is destructured similarly:
 
-```rust,editable
+```rust,ignore,editable
 // `allow` required to silence warnings because only
 // one variant is used.
 #[allow(dead_code)]
@@ -11,15 +11,15 @@ enum Color {
     Red,
     Blue,
     Green,
-    // These likewise tie `u32` tuples to different names: color models.
-    RGB(u32, u32, u32),
-    HSV(u32, u32, u32),
-    HSL(u32, u32, u32),
-    CMY(u32, u32, u32),
-    CMYK(u32, u32, u32, u32),
+    // These likewise tie `int` tuples to different names: color models.
+    RGB(int, int, int),
+    HSV(int, int, int),
+    HSL(int, int, int),
+    CMY(int, int, int),
+    CMYK(int, int, int, int),
 }
 
-fn main() {
+pub fn main() {
     let color = Color::RGB(122, 17, 40);
     // TODO ^ Try different variants for `color`
 
@@ -45,10 +45,4 @@ fn main() {
 }
 ```
 
-### See also:
-
-[`#[allow(...)]`][allow], [color models][color_models] and [`enum`][enum]
-
-[allow]: ../../../attribute/unused.md
-[color_models]: https://en.wikipedia.org/wiki/Color_model
 [enum]: ../../../custom_types/enum.md

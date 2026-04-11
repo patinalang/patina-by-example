@@ -12,7 +12,7 @@ In the following example, `cookable_v3()` results in an `Option<Food>`.
 Using `map()` instead of `and_then()` would have given an
 `Option<Option<Food>>`, which is an invalid type for `eat()`.
 
-```rust,editable
+```rust,ignore,editable
 #![allow(dead_code)]
 
 #[derive(Debug)] enum Food { CordonBleu, Steak, Sushi }
@@ -61,7 +61,7 @@ fn eat(food: Food, day: Day) {
     }
 }
 
-fn main() {
+pub fn main() {
     let (cordon_bleu, steak, sushi) = (Food::CordonBleu, Food::Steak, Food::Sushi);
 
     eat(cordon_bleu, Day::Monday);
@@ -69,12 +69,3 @@ fn main() {
     eat(sushi, Day::Wednesday);
 }
 ```
-
-### See also:
-
-[closures][closures], [`Option`][option], [`Option::and_then()`][and_then], and [`Option::flatten()`][flatten]
-
-[closures]: ../../fn/closures.md
-[option]: https://doc.rust-lang.org/std/option/enum.Option.html
-[and_then]: https://doc.rust-lang.org/std/option/enum.Option.html#method.and_then
-[flatten]: https://doc.rust-lang.org/std/option/enum.Option.html#method.flatten

@@ -4,10 +4,10 @@ The `enum` keyword allows the creation of a type which may be one of a few
 different variants. Any variant which is valid as a `struct` is also valid in
 an `enum`.
 
-```rust,editable
+```rust,ignore,editable
 // Create an `enum` to classify a web event. Note how both
 // names and type information together specify the variant:
-// `PageLoad != PageUnload` and `KeyPress(char) != Paste(String)`.
+// `PageLoad != PageUnload` and `KeyPress(char) != Paste(str)`.
 // Each is different and independent.
 enum WebEvent {
     // An `enum` variant may either be `unit-like`,
@@ -15,9 +15,9 @@ enum WebEvent {
     PageUnload,
     // like tuple structs,
     KeyPress(char),
-    Paste(String),
-    // or c-like structures.
-    Click { x: i64, y: i64 },
+    Paste(str),
+    // or map structures.
+    Click { x: int, y: int },
 }
 
 // A function which takes a `WebEvent` enum as an argument and
@@ -36,10 +36,9 @@ fn inspect(event: WebEvent) {
     }
 }
 
-fn main() {
+pub fn main() {
     let pressed = WebEvent::KeyPress('x');
-    // `to_owned()` creates an owned `String` from a string slice.
-    let pasted  = WebEvent::Paste("my text".to_owned());
+    let pasted  = WebEvent::Paste("my text");
     let click   = WebEvent::Click { x: 20, y: 80 };
     let load    = WebEvent::PageLoad;
     let unload  = WebEvent::PageUnload;
@@ -59,7 +58,7 @@ If you use a type alias, you can refer to each enum variant via its alias.
 This might be useful if the enum's name is too long or too generic, and you
 want to rename it.
 
-```rust,editable
+```rust,ignore,editable
 enum VeryVerboseEnumOfThingsToDoWithNumbers {
     Add,
     Subtract,
@@ -68,7 +67,7 @@ enum VeryVerboseEnumOfThingsToDoWithNumbers {
 // Creates a type alias
 type Operations = VeryVerboseEnumOfThingsToDoWithNumbers;
 
-fn main() {
+pub fn main() {
     // We can refer to each variant via its alias, not its long and inconvenient
     // name.
     let x = Operations::Add;
@@ -77,14 +76,14 @@ fn main() {
 
 The most common place you'll see this is in `impl` blocks using the `Self` alias.
 
-```rust,editable
+```rust,ignore,editable
 enum VeryVerboseEnumOfThingsToDoWithNumbers {
     Add,
     Subtract,
 }
 
 impl VeryVerboseEnumOfThingsToDoWithNumbers {
-    fn run(&self, x: i32, y: i32) -> i32 {
+    fn run(self, x: int, y: int) -> int {
         match self {
             Self::Add => x + y,
             Self::Subtract => x - y,
@@ -93,17 +92,9 @@ impl VeryVerboseEnumOfThingsToDoWithNumbers {
 }
 ```
 
-To learn more about enums and type aliases, you can read the
-[stabilization report][aliasreport] from when this feature was stabilized into
-Rust.
-
 ### See also:
 
-[`match`][match], [`fn`][fn], and [`String`][str], ["Type alias enum variants" RFC][type_alias_rfc]
+[`match`][match], [`fn`][fn]
 
-[c_struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
 [match]: ../flow_control/match.md
 [fn]: ../fn.md
-[str]: ../std/str.md
-[aliasreport]: https://github.com/rust-lang/rust/pull/61682/#issuecomment-502472847
-[type_alias_rfc]: https://rust-lang.github.io/rfcs/2338-type-alias-enum-variants.html

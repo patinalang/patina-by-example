@@ -5,7 +5,7 @@ example, failing to read a file and then continuing to use that *bad* input
 would clearly be problematic. Noticing and explicitly managing those errors
 saves the rest of the program from various pitfalls.
 
-There are various ways to deal with errors in Rust, which are described in the
+There are various ways to deal with errors in Patina, which are described in the
 following subchapters. They all have more or less subtle differences and different
 use cases. As a rule of thumb:
 
@@ -24,8 +24,3 @@ wrong anyway.
 When there is a chance that things do go wrong and the caller has to deal with the
 problem, use `Result`. You can `unwrap` and `expect` them as well (please don't
 do that unless it's a test or quick prototype).
-
-For a more rigorous discussion of error handling, refer to the error
-handling section in the [official book][book].
-
-[book]: https://doc.rust-lang.org/book/ch09-00-error-handling.html

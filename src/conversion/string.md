@@ -1,45 +1,45 @@
-# To and from Strings
+# To and from `str`s
 
-## Converting to String
+## Converting to `str`
 
-To convert any type to a `String` is as simple as implementing the [`ToString`]
+To convert any type to a `str` is as simple as implementing the `ToStr`
 trait for the type. Rather than doing so directly, you should implement the
-[`fmt::Display`][Display] trait which automatically provides [`ToString`] and
-also allows printing the type as discussed in the section on [`print!`][print].
+`Fmt::Display` trait which automatically provides `ToStr` and
+also allows printing the type.
 
-```rust,editable
-use std::fmt;
+```rust,ignore,editable
+use Std::Fmt;
 
 struct Circle {
-    radius: i32
+    radius: int
 }
 
-impl fmt::Display for Circle {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Fmt::Display for Circle {
+    fn fmt(self, f: Fmt::Formatter) -> Fmt::Result {
         write!(f, "Circle of radius {}", self.radius)
     }
 }
 
-fn main() {
+pub fn main() {
     let circle = Circle { radius: 6 };
-    println!("{}", circle.to_string());
+    println!("{}", circle.to_str());
 }
 ```
 
-## Parsing a String
+## Parsing a `str`
 
 It's useful to convert strings into many types, but one of the more common string
 operations is to convert them from string to number. The idiomatic approach to
-this is to use the [`parse`] function and either to arrange for type inference or
+this is to use the `parse` function and either to arrange for type inference or
 to specify the type to parse using the 'turbofish' syntax. Both alternatives are
 shown in the following example.
 
-This will convert the string into the type specified as long as the [`FromStr`]
+This will convert the string into the type specified as long as the `FromStr`
 trait is implemented for that type. This is implemented for numerous types
 within the standard library.
 
-```rust,editable
-fn main() {
+```rust,ignore,editable
+pub fn main() {
     let parsed: i32 = "5".parse().unwrap();
     let turbo_parsed = "10".parse::<i32>().unwrap();
 
@@ -49,11 +49,11 @@ fn main() {
 ```
 
 To obtain this functionality on a user defined type simply implement the
-[`FromStr`] trait for that type.
+`FromStr` trait for that type.
 
-```rust,editable
-use std::num::ParseIntError;
-use std::str::FromStr;
+```rust,ignore,editable
+use Std::Num::ParseIntError;
+use str::FromStr;
 
 #[derive(Debug)]
 struct Circle {
@@ -62,7 +62,7 @@ struct Circle {
 
 impl FromStr for Circle {
     type Err = ParseIntError;
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
+    fn from_str(s: str) -> Result<Self, Self::Err> {
         match s.trim().parse() {
             Ok(num) => Ok(Circle{ radius: num }),
             Err(e) => Err(e),
@@ -70,15 +70,9 @@ impl FromStr for Circle {
     }
 }
 
-fn main() {
+pub fn main() {
     let radius = "    3 ";
     let circle: Circle = radius.parse().unwrap();
     println!("{:?}", circle);
 }
 ```
-
-[`ToString`]: https://doc.rust-lang.org/std/string/trait.ToString.html
-[Display]: https://doc.rust-lang.org/std/fmt/trait.Display.html
-[print]: ../hello/print.md
-[`parse`]: https://doc.rust-lang.org/std/primitive.str.html#method.parse
-[`FromStr`]: https://doc.rust-lang.org/std/str/trait.FromStr.html

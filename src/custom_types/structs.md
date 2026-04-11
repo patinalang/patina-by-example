@@ -3,30 +3,30 @@
 There are three types of structures ("structs") that can be created using the
 `struct` keyword:
 
-* Tuple structs, which are, basically, named tuples.
-* The classic [C structs][c_struct]
+* Most commonly, [Elixir-style structs][Elixir structs], which are based on maps.
+* Tuple structs, which are, basically, [Erlang's records][records].
 * Unit structs, which are field-less, are useful for generics.
 
-```rust,editable
+```rust,ignore,editable
 // An attribute to hide warnings for unused code.
 #![allow(dead_code)]
 
 #[derive(Debug)]
 struct Person {
-    name: String,
-    age: u8,
+    name: str,
+    age: int,
 }
 
 // A unit struct
 struct Unit;
 
 // A tuple struct
-struct Pair(i32, f32);
+struct Pair(int, float);
 
 // A struct with two fields
 struct Point {
-    x: f32,
-    y: f32,
+    x: float,
+    y: float,
 }
 
 // Structs can be reused as fields of another struct
@@ -37,9 +37,9 @@ struct Rectangle {
     bottom_right: Point,
 }
 
-fn main() {
+pub fn main() {
     // Create struct with field init shorthand
-    let name = String::from("Peter");
+    let name = "Peter";
     let age = 27;
     let peter = Person { name, age };
 
@@ -86,19 +86,11 @@ fn main() {
 }
 ```
 
-### Activity
-
-1. Add a function `rect_area` which calculates the area of a `Rectangle` (try
-   using nested destructuring).
-2. Add a function `square` which takes a `Point` and a `f32` as arguments, and
-   returns a `Rectangle` with its top left corner on the point, and a width and
-   height corresponding to the `f32`.
-
 ### See also
 
-[`attributes`][attributes], [raw identifiers][raw_identifiers] and [destructuring][destructuring]
+[`attributes`][attributes], [destructuring][destructuring]
 
 [attributes]: ../attribute.md
-[c_struct]: https://en.wikipedia.org/wiki/Struct_(C_programming_language)
 [destructuring]: ../flow_control/match/destructuring.md
-[raw_identifiers]: ../compatibility/raw_identifiers.md
+[records]: https://www.erlang.org/doc/system/ref_man_records.html
+[Elixir structs]: https://hexdocs.pm/elixir/structs.html

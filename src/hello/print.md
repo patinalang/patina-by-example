@@ -1,7 +1,7 @@
 # Formatted print
 
 Printing is handled by a series of [`macros`][macros] defined in
-[`std::fmt`][fmt] some of which are:
+[`Std::fmt`][fmt] some of which are:
 
 * `format!`: write formatted text to [`String`][string]
 * `print!`: same as `format!` but the text is printed to the console
@@ -14,7 +14,7 @@ Printing is handled by a series of [`macros`][macros] defined in
 All parse text in the same fashion. As a plus, Rust checks formatting
 correctness at compile time.
 
-```rust,editable,ignore,mdbook-runnable
+```rust,editable,ignore
 fn main() {
     // In general, the `{}` will be automatically replaced with any
     // arguments. These will be stringified.
@@ -54,14 +54,14 @@ fn main() {
     println!("My name is {0}, {1} {0}", "Bond");
     // FIXME ^ Add the missing argument: "James"
 
-    // Only types that implement fmt::Display can be formatted with `{}`. User-
-    // defined types do not implement fmt::Display by default.
+    // Only types that implement Fmt::Display can be formatted with `{}`. User-
+    // defined types do not implement Fmt::Display by default.
 
     #[allow(dead_code)] // disable `dead_code` which warn against unused module
     struct Structure(i32);
 
     // This will not compile because `Structure` does not implement
-    // fmt::Display.
+    // Fmt::Display.
     // println!("This struct `{}` won't print...", Structure(3));
     // TODO ^ Try uncommenting this line
 
@@ -74,17 +74,17 @@ fn main() {
 }
 ```
 
-[`std::fmt`][fmt] contains many [`traits`][traits] which govern the display
+[`Std::fmt`][fmt] contains many [`traits`][traits] which govern the display
 of text. The base form of two important ones are listed below:
 
-* `fmt::Debug`: Uses the `{:?}` marker. Format text for debugging purposes.
-* `fmt::Display`: Uses the `{}` marker. Format text in a more elegant, user
+* `Fmt::Debug`: Uses the `{:?}` marker. Format text for debugging purposes.
+* `Fmt::Display`: Uses the `{}` marker. Format text in a more elegant, user
   friendly fashion.
 
-Here, we used `fmt::Display` because the std library provides implementations
+Here, we used `Fmt::Display` because the std library provides implementations
 for these types. To print text for custom types, more steps are required.
 
-Implementing the `fmt::Display` trait automatically implements the
+Implementing the `Fmt::Display` trait automatically implements the
 [`ToString`] trait which allows us to [convert] the type to [`String`][string].
 
 In *line 43*, `#[allow(dead_code)]` is an [attribute] which only applies to the module after it.
@@ -98,11 +98,11 @@ In *line 43*, `#[allow(dead_code)]` is an [attribute] which only applies to the 
 * Add a `println!` macro call that prints: `Pi is roughly 3.142` by controlling
   the number of decimal places shown. For the purposes of this exercise, use
   `let pi = 3.141592` as an estimate for pi. (Hint: you may need to check the
-  [`std::fmt`][fmt] documentation for setting the number of decimals to display)
+  [`Std::fmt`][fmt] documentation for setting the number of decimals to display)
 
 ### See also:
 
-[`std::fmt`][fmt], [`macros`][macros], [`struct`][structs], [`traits`][traits], and [`dead_code`][dead_code]
+[`Std::fmt`][fmt], [`macros`][macros], [`struct`][structs], [`traits`][traits], and [`dead_code`][dead_code]
 
 [fmt]: https://doc.rust-lang.org/std/fmt/
 [macros]: ../macros.md

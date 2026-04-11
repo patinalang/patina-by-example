@@ -4,13 +4,13 @@ Indirectly accessing a variable makes it impossible to branch and use that
 variable without re-binding. `match` provides the `@` sigil for binding values to
 names:
 
-```rust,editable
-// A function `age` which returns a `u32`.
-fn age() -> u32 {
+```rust,ignore,editable
+// A function `age` which returns an `int`.
+fn age() -> int {
     15
 }
 
-fn main() {
+pub fn main() {
     println!("Tell me what type of person you are");
 
     match age() {
@@ -35,12 +35,12 @@ fn main() {
 
 You can also use binding to "destructure" `enum` variants, such as `Option`:
 
-```rust,editable
-fn some_number() -> Option<u32> {
+```rust,ignore,editable
+fn some_number() -> Option<int> {
     Some(42)
 }
 
-fn main() {
+pub fn main() {
     match some_number() {
         // Got `Some` variant, match if its value, bound to `n`,
         // is equal to 42.
@@ -66,4 +66,4 @@ fn main() {
 
 [functions]: ../../fn.md
 [enums]: ../../custom_types/enum.md
-[option]: ../../std/option.md
+[option]: ../../error/option_unwrap.md

@@ -1,42 +1,33 @@
-# constants
+# Constants
 
-Rust has two different types of constants which can be declared in any scope
-including global. Both require explicit type annotation:
+Patina has one type of constant, `const`, which can be declared in any scope
+including global. It requires an explicit type annotation.
 
-* `const`: An unchangeable value (the common case).
-* `static`: A possibly mutable variable with [`'static`][static] lifetime.
-  The static lifetime is inferred and does not have to be specified.
-  Accessing or modifying a mutable static variable is [`unsafe`][unsafe].
+A constant is by default only accessible in the current module.
+`pub const` can be used to allow access from other modules.
 
-```rust,editable,ignore,mdbook-runnable
+```rust,editable,ignore
 // Globals are declared outside all other scopes.
-static LANGUAGE: &str = "Rust";
-const THRESHOLD: i32 = 10;
+const THRESHOLD: int = 10;
 
-fn is_big(n: i32) -> bool {
+fn is_big(n: int) -> bool {
     // Access constant in some function
     n > THRESHOLD
 }
 
-fn main() {
+pub fn main() {
     let n = 16;
 
-    // Access constant in the main thread
-    println!("This is {}", LANGUAGE);
     println!("The threshold is {}", THRESHOLD);
     println!("{} is {}", n, if is_big(n) { "big" } else { "small" });
 
     // Error! Cannot modify a `const`.
     THRESHOLD = 5;
-    // FIXME ^ Comment out this line
 }
 ```
 
-### See also:
+### Runtime representation
 
-[The `const`/`static` RFC](
-https://github.com/rust-lang/rfcs/blob/master/text/0246-const-vs-static.md),
-[`'static` lifetime][static]
-
-[static]: ../scope/lifetime/static_lifetime.md
-[unsafe]: ../unsafe.md
+`pub const` will be persisted in the Erlang Abstract Format. It's roughly equivalent
+to Elixir's persistent attributes, and will show up in runtime in `__info__(:attributes)`
+callback for the module that defines them.

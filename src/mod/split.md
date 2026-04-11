@@ -6,91 +6,91 @@ Modules can be mapped to a file/directory hierarchy. Let's break down the
 ```shell
 $ tree .
 .
-├── my
-│   ├── inaccessible.rs
+├── my_mod
+│   └── inaccessible.rs
 │   └── nested.rs
-├── my.rs
+├── my_mod.rs
 └── split.rs
 ```
 
 In `split.rs`:
 
 ```rust,ignore
-// This declaration will look for a file named `my.rs` and will
-// insert its contents inside a module named `my` under this scope
-mod my;
+// This declaration will look for a file named `my_mod.rs` and will
+// insert its contents inside a module named `MyMod` under this scope
+mod MyMod;
 
 fn function() {
     println!("called `function()`");
 }
 
-fn main() {
-    my::function();
+pub fn main() {
+    MyMod::function();
 
     function();
 
-    my::indirect_access();
+    MyMod::indirect_access();
 
-    my::nested::function();
+    MyMod::Nested::function();
 }
 
 ```
 
-In `my.rs`:
+In `my_mod.rs`:
 
 ```rust,ignore
 // Similarly `mod inaccessible` and `mod nested` will locate the `nested.rs`
 // and `inaccessible.rs` files and insert them here under their respective
 // modules
-mod inaccessible;
-pub mod nested;
+mod Inaccessible;
+pub mod Nested;
 
 pub fn function() {
-    println!("called `my::function()`");
+    println!("called `MyMod::function()`");
 }
 
 fn private_function() {
-    println!("called `my::private_function()`");
+    println!("called `MyMod::private_function()`");
 }
 
 pub fn indirect_access() {
-    print!("called `my::indirect_access()`, that\n> ");
+    print!("called `MyMod::indirect_access()`, that\n> ");
 
     private_function();
 }
 ```
 
-In `my/nested.rs`:
+In `my_mod/nested.rs`:
 
 ```rust,ignore
 pub fn function() {
-    println!("called `my::nested::function()`");
+    println!("called `MyMod::Nested::function()`");
 }
 
 #[allow(dead_code)]
 fn private_function() {
-    println!("called `my::nested::private_function()`");
+    println!("called `MyMod::Nested::private_function()`");
 }
 ```
 
-In `my/inaccessible.rs`:
+In `my_mod/inaccessible.rs`:
 
 ```rust,ignore
 #[allow(dead_code)]
 pub fn public_function() {
-    println!("called `my::inaccessible::public_function()`");
+    println!("called `MyMod::Inaccessible::public_function()`");
 }
 ```
 
 Let's check that things still work as before:
 
 ```shell
-$ rustc split.rs && ./split
-called `my::function()`
+$ patinac split.pt && patina run -m Split
+called `MyMod::function()`
 called `function()`
-called `my::indirect_access()`, that
-> called `my::private_function()`
-called `my::nested::function()`
+called `MyMod::indirect_access()`, that
+> called `MyMod::private_function()`
+called `MyMod::Nested::function()`
 ```
 
 [visibility]: visibility.md

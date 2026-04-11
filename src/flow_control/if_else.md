@@ -5,8 +5,8 @@ the boolean condition doesn't need to be surrounded by parentheses, and each
 condition is followed by a block. `if`-`else` conditionals are expressions,
 and, all branches must return the same type.
 
-```rust,editable
-fn main() {
+```rust,ignore,editable
+pub fn main() {
     let n = 5;
 
     if n < 0 {
@@ -21,12 +21,12 @@ fn main() {
         if n < 10 && n > -10 {
             println!(", and is a small number, increase ten-fold");
 
-            // This expression returns an `i32`.
+            // This expression returns an `int`.
             10 * n
         } else {
             println!(", and is a big number, halve the number");
 
-            // This expression must return an `i32` as well.
+            // This expression must return an `int` as well.
             n / 2
             // TODO ^ Try suppressing this expression with a semicolon.
         };

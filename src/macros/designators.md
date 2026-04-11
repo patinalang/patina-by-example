@@ -3,7 +3,7 @@
 The arguments of a macro are prefixed by a dollar sign `$` and type annotated
 with a *designator*:
 
-```rust,editable
+```rust,ignore,editable
 macro_rules! create_function {
     // This macro takes an argument of designator `ident` and
     // creates a function named `$func_name`.
@@ -33,15 +33,15 @@ macro_rules! print_result {
     };
 }
 
-fn main() {
+pub fn main() {
     foo();
     bar();
 
-    print_result!(1u32 + 1);
+    print_result!(1 + 1);
 
     // Recall that blocks are expressions too!
     print_result!({
-        let x = 1u32;
+        let x = 1;
 
         x * x + 2 * x - 1
     });
@@ -61,7 +61,3 @@ These are some of the available designators:
 * `tt` (*token tree*)
 * `ty` (*type*)
 * `vis` (*visibility qualifier*)
-
-For a complete list, see the [Rust Reference].
-
-[Rust Reference]: https://doc.rust-lang.org/reference/macros-by-example.html

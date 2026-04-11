@@ -2,11 +2,11 @@
 
 Similarly, a `struct` can be destructured as shown:
 
-```rust,editable
-fn main() {
+```rust,ignore,editable
+pub fn main() {
     struct Foo {
-        x: (u32, u32),
-        y: u32,
+        x: (int, int),
+        y: int,
     }
 
     // Try changing the values in the struct to see what happens

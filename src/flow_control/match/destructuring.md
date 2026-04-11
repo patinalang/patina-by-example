@@ -2,18 +2,12 @@
 
 A `match` block can destructure items in a variety of ways.
 
+* [Destructuring Lists][list]
 * [Destructuring Tuples][tuple]
-* [Destructuring Arrays and Slices][slice]
 * [Destructuring Enums][enum]
-* [Destructuring Pointers][refs]
 * [Destructuring Structures][struct]
 
-[enum]: destructuring/destructure_enum.md
-[refs]: destructuring/destructure_pointers.md
-[struct]: destructuring/destructure_structures.md
+[list]: destructuring/destructure_list.md
 [tuple]: destructuring/destructure_tuple.md
-[slice]: destructuring/destructure_slice.md
-
-### See also:
-
-[The Rust Reference for Destructuring](https://doc.rust-lang.org/reference/patterns.html#r-patterns.destructure)
+[enum]: destructuring/destructure_enum.md
+[struct]: destructuring/destructure_structures.md

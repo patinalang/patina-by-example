@@ -1,15 +1,18 @@
 # Guards
 
 A `match` *guard* can be added to filter the arm.
+Only [Erlang guard expressions][guard expressions] are allowed in the `if` guards.
 
-```rust,editable
+<!-- Patina TODO: Patina-native guard expression set -->
+
+```rust,ignore,editable
 #[allow(dead_code)]
 enum Temperature {
     Celsius(i32),
     Fahrenheit(i32),
 }
 
-fn main() {
+pub fn main() {
     let temperature = Temperature::Celsius(35);
     // ^ TODO try different values for `temperature`
 
@@ -27,8 +30,8 @@ fn main() {
 Note that the compiler won't take guard conditions into account when checking
 if all patterns are covered by the match expression.
 
-```rust,editable,ignore,mdbook-runnable
-fn main() {
+```rust,editable,ignore
+pub fn main() {
     let number: u8 = 4;
 
     match number {
@@ -44,3 +47,5 @@ fn main() {
 
 [Tuples](../../primitives/tuples.md)
 [Enums](../../custom_types/enum.md)
+
+[guard expressions]: https://www.erlang.org/doc/system/expressions.html#guard-expressions

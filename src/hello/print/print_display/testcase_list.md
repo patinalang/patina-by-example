@@ -1,8 +1,8 @@
 # Testcase: List
 
-Implementing `fmt::Display` for a structure where the elements must each be
+Implementing `Fmt::Display` for a structure where the elements must each be
 handled sequentially is tricky. The problem is that each `write!` generates a
-`fmt::Result`. Proper handling of this requires dealing with *all* the
+`Fmt::Result`. Proper handling of this requires dealing with *all* the
 results. Rust provides the `?` operator for exactly this purpose.
 
 Using `?` on `write!` looks like this:
@@ -13,39 +13,39 @@ Using `?` on `write!` looks like this:
 write!(f, "{}", value)?;
 ```
 
-With `?` available, implementing `fmt::Display` for a `Vec` is
+With `?` available, implementing `Fmt::Display` for a `Vec` is
 straightforward:
 
-```rust,editable
-use std::fmt; // Import the `fmt` module.
+```rust,ignore,editable
+use Std::fmt; // Import the `fmt` module.
 
-// Define a structure named `List` containing a `Vec`.
-struct List(Vec<i32>);
+// Define a structure named `List` containing a `[int]`.
+struct List([int]);
 
-impl fmt::Display for List {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl Fmt::Display for List {
+    fn fmt(self, f: Fmt::Formatter) -> Fmt::Result {
         // Extract the value using tuple indexing,
         // and create a reference to `vec`.
-        let vec = &self.0;
+        let list = self.0;
 
         write!(f, "[")?;
 
         // Iterate over `v` in `vec` while enumerating the iteration
         // index in `index`.
-        for (index, v) in vec.iter().enumerate() {
+        for (index, v) in list.iter().enumerate() {
             // For every element except the first, add a comma.
             // Use the ? operator to return on errors.
             if index != 0 { write!(f, ", ")?; }
             write!(f, "{}", v)?;
         }
 
-        // Close the opened bracket and return a fmt::Result value.
+        // Close the opened bracket and return a Fmt::Result value.
         write!(f, "]")
     }
 }
 
-fn main() {
-    let v = List(vec![1, 2, 3]);
+pub fn main() {
+    let v = List([1, 2, 3]);
     println!("{}", v);
 }
 ```
@@ -61,12 +61,9 @@ printed. The new output should look like this:
 
 ### See also:
 
-[`for`][for], [`ref`][ref], [`Result`][result], [`struct`][struct],
-[`?`][q_mark], and [`vec!`][vec]
+[`for`][for], [`Result`][result], [`struct`][struct],[`?`][q_mark]
 
 [for]: ../../../flow_control/for.md
-[result]: ../../../std/result.md
-[ref]: ../../../scope/borrow/ref.md
+[result]: ../../../error/result.md
 [struct]: ../../../custom_types/structs.md
-[q_mark]: ../../../std/result/question_mark.md
-[vec]: ../../../std/vec.md
+[q_mark]: ../../../error/result/enter_question_mark.md

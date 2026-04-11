@@ -6,8 +6,8 @@ It is not common to declare a variable binding and initialize it later in the fu
 It is more difficult for a reader to find the initialization when initialization is separated from declaration.
 It is common to declare and initialize a variable binding near where the variable will be used.
 
-```rust,editable,ignore,mdbook-runnable
-fn main() {
+```rust,editable,ignore
+pub fn main() {
     // Declare a variable binding
     let a_binding;
 
@@ -31,5 +31,3 @@ fn main() {
     println!("another binding: {}", another_binding);
 }
 ```
-
-

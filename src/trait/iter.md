@@ -1,6 +1,6 @@
 # Iterators
 
-The [`Iterator`][iter] trait is used to implement iterators over collections
+The `Iterator` trait is used to implement iterators over collections
 such as arrays.
 
 The trait requires only a method to be defined for the `next` element,
@@ -8,12 +8,12 @@ which may be manually defined in an `impl` block or automatically
 defined (as in arrays and ranges).
 
 As a point of convenience for common situations, the `for` construct
-turns some collections into iterators using the [`.into_iter()`][intoiter] method.
+turns some collections into iterators using the `.iter()` method.
 
-```rust,editable
+```rust,ignore,editable
 struct Fibonacci {
-    curr: u32,
-    next: u32,
+    curr: int,
+    next: int,
 }
 
 // Implement `Iterator` for `Fibonacci`.
@@ -21,7 +21,7 @@ struct Fibonacci {
 // and an `associated type` to declare the return type of the iterator.
 impl Iterator for Fibonacci {
     // We can refer to this type using Self::Item
-    type Item = u32;
+    type Item = int;
 
     // Here, we define the sequence using `.curr` and `.next`.
     // The return type is `Option<T>`:
@@ -29,15 +29,12 @@ impl Iterator for Fibonacci {
     //     * Otherwise, the next value is wrapped in `Some` and returned.
     // We use Self::Item in the return type, so we can change
     // the type without having to update the function signatures.
-    fn next(&mut self) -> Option<Self::Item> {
-        let current = self.curr;
-
-        self.curr = self.next;
-        self.next = current + self.next;
+    fn next(self) -> (Self, Option<Self::Item>) {
+        let next_self = Fibonacci { curr: self.next, next: self.curr + self.next }
 
         // Since there's no endpoint to a Fibonacci sequence, the `Iterator`
         // will never return `None`, and `Some` is always returned.
-        Some(current)
+        (next_self, Some(self.curr))
     }
 }
 
@@ -46,15 +43,20 @@ fn fibonacci() -> Fibonacci {
     Fibonacci { curr: 0, next: 1 }
 }
 
-fn main() {
+pub fn main() {
     // `0..3` is an `Iterator` that generates: 0, 1, and 2.
     let mut sequence = 0..3;
+    let mut val: Option<int> = None;
 
     println!("Four consecutive `next` calls on 0..3");
-    println!("> {:?}", sequence.next());
-    println!("> {:?}", sequence.next());
-    println!("> {:?}", sequence.next());
-    println!("> {:?}", sequence.next());
+    (sequence, val) = sequence.next();
+    println!("> {:?}", val);
+    (sequence, val) = sequence.next();
+    println!("> {:?}", val);
+    (sequence, val) = sequence.next();
+    println!("> {:?}", val);
+    (sequence, val) = sequence.next();
+    println!("> {:?}", val);
 
     // `for` works through an `Iterator` until it returns `None`.
     // Each `Some` value is unwrapped and bound to a variable (here, `i`).
@@ -75,15 +77,17 @@ fn main() {
         println!("> {}", i);
     }
 
-    let array = [1u32, 3, 3, 7];
+    let list = [1, 3, 3, 7];
 
-    // The `iter` method produces an `Iterator` over an array/slice.
-    println!("Iterate the following array {:?}", &array);
-    for i in array.iter() {
+    // The `iter` method produces an `Iterator` over a list
+    println!("Iterate the following list {:?}", list);
+    for i in list.iter() {
+        println!("> {}", i);
+    }
+    // For implicitly calls `iter()` if the supplied value is not an iterator
+    println!("Iterate the following list {:?} with implicit .iter()", list);
+    for i in list {
         println!("> {}", i);
     }
 }
 ```
-
-[intoiter]: https://doc.rust-lang.org/std/iter/trait.IntoIterator.html
-[iter]: https://doc.rust-lang.org/core/iter/trait.Iterator.html

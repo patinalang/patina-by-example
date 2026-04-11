@@ -5,22 +5,23 @@ type of the value expression
 during an initialization. It also looks at how the variable is used afterwards
 to infer its type. Here's an advanced example of type inference:
 
-```rust,editable
-fn main() {
-    // Because of the annotation, the compiler knows that `elem` has type u8.
-    let elem = 5u8;
+```rust,ignore,editable
+pub fn main() {
+    // The compiler knows that `elem` has type `int`.
+    let elem = 1;
 
-    // Create an empty vector (a growable array).
-    let mut vec = Vec::new();
-    // At this point the compiler doesn't know the exact type of `vec`, it
-    // just knows that it's a vector of something (`Vec<_>`).
+    // Create an empty list.
+    let mut lst = [];
+    // At this point the compiler doesn't know the exact type of `lst`, it
+    // just knows that it's a list of something (`[_]`).
 
-    // Insert `elem` in the vector.
-    vec.push(elem);
-    // Aha! Now the compiler knows that `vec` is a vector of `u8`s (`Vec<u8>`)
-    // TODO ^ Try commenting out the `vec.push(elem)` line
+    // Prepend `elem` to the list.
+    lst = [elem, ..lst]
+    // Aha! Now the compiler knows that `lst` is a list of `int`s (`[int]`)
+    println!("{:?}", lst);
 
-    println!("{:?}", vec);
+    // Error! `str` does not fit in `[int]`
+    lst = ["hi", ..lst]
 }
 ```
 

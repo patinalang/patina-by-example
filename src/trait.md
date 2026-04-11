@@ -8,36 +8,36 @@ we define `Animal`, a group of methods. The `Animal` `trait` is
 then implemented for the `Sheep` data type, allowing the use of
 methods from `Animal` with a `Sheep`.
 
-```rust,editable
-struct Sheep { naked: bool, name: &'static str }
+```rust,ignore,editable
+struct Sheep { naked: bool, name: str }
 
 trait Animal {
     // Associated function signature; `Self` refers to the implementor type.
-    fn new(name: &'static str) -> Self;
+    fn new(name: str) -> Self;
 
     // Method signatures; these will return a string.
-    fn name(&self) -> &'static str;
-    fn noise(&self) -> &'static str;
+    fn name(self) -> str;
+    fn noise(self) -> str;
 
     // Traits can provide default method definitions.
-    fn talk(&self) {
+    fn talk(self) {
         println!("{} says {}", self.name(), self.noise());
     }
 }
 
 impl Sheep {
-    fn is_naked(&self) -> bool {
+    fn is_naked(self) -> bool {
         self.naked
     }
 
-    fn shear(&mut self) {
+    fn shear(self) -> Self {
         if self.is_naked() {
             // Implementor methods can use the implementor's trait methods.
             println!("{} is already naked...", self.name());
+            self
         } else {
             println!("{} gets a haircut!", self.name);
-
-            self.naked = true;
+            Sheep { naked: true, ..self }
         }
     }
 }
@@ -45,15 +45,15 @@ impl Sheep {
 // Implement the `Animal` trait for `Sheep`.
 impl Animal for Sheep {
     // `Self` is the implementor type: `Sheep`.
-    fn new(name: &'static str) -> Sheep {
+    fn new(name: str) -> Sheep {
         Sheep { name: name, naked: false }
     }
 
-    fn name(&self) -> &'static str {
+    fn name(self) -> str {
         self.name
     }
 
-    fn noise(&self) -> &'static str {
+    fn noise(self) -> str {
         if self.is_naked() {
             "baaaaah?"
         } else {
@@ -62,15 +62,15 @@ impl Animal for Sheep {
     }
 
     // Default trait methods can be overridden.
-    fn talk(&self) {
+    fn talk(self) {
         // For example, we can add some quiet contemplation.
         println!("{} pauses briefly... {}", self.name, self.noise());
     }
 }
 
-fn main() {
+pub fn main() {
     // Type annotation is necessary in this case.
-    let mut dolly: Sheep = Animal::new("Dolly");
+    let dolly: Sheep = Animal::new("Dolly");
     // TODO ^ Try removing the type annotations.
 
     dolly.talk();

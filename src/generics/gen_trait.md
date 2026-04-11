@@ -1,45 +1,41 @@
 # Traits
 
-Of course `trait`s can also be generic. Here we define one which reimplements
-the `Drop` `trait` as a generic method to `drop` itself and an input.
+Of course `trait`s can also be generic. Here we define a `SeededHash` trait that hashes
+itself and an input.
 
-```rust,editable
-// Non-copyable types.
+```rust,ignore,editable
+extern mod erlang;
+
 struct Empty;
-struct Null;
+struct StaticSeed;
 
 // A trait generic over `T`.
-trait DoubleDrop<T> {
+trait SeededHash<T> {
     // Define a method on the caller type which takes an
-    // additional single parameter `T` and does nothing with it.
-    fn double_drop(self, _: T);
+    // additional single parameter `T`.
+    fn seeded_hash(self, seed: T) -> int;
 }
 
-// Implement `DoubleDrop<T>` for any generic parameter `T` and
+// Implement `SeededHash<T>` for any generic parameter `T` and
 // caller `U`.
-impl<T, U> DoubleDrop<T> for U {
-    // This method takes ownership of both passed arguments,
-    // deallocating both.
-    fn double_drop(self, _: T) {}
+impl<T, U> SeededHash<T> for U {
+    fn seeded_hash(self, seed: T) -> int {
+        erlang.phash2((seed, self)).unsafe_cast::<int>()
+    }
 }
 
-fn main() {
+pub fn main() {
     let empty = Empty;
-    let null  = Null;
+    let seed  = StaticSeed;
 
-    // Deallocate `empty` and `null`.
-    empty.double_drop(null);
-
-    //empty;
-    //null;
-    // ^ TODO: Try uncommenting these lines.
+    // hash `empty` with static seed
+    empty.seeded_hash(seed);
 }
 ```
 
 ### See also:
 
-[`Drop`][Drop], [`struct`][structs], and [`trait`][traits]
+[`struct`][structs], and [`trait`][traits]
 
-[Drop]: https://doc.rust-lang.org/std/ops/trait.Drop.html
 [structs]: ../custom_types/structs.md
 [traits]: ../trait.md

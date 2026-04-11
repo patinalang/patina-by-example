@@ -13,62 +13,30 @@ Upon finding an `Err`, there are two valid actions to take:
 instead of `panic`king on `Err`s. Let's see how we can simplify the earlier
 example that used combinators:
 
-```rust,editable
-use std::num::ParseIntError;
+```rust,ignore,editable
+use Std::Num::ParseIntError;
 
-fn multiply(first_number_str: &str, second_number_str: &str) -> Result<i32, ParseIntError> {
-    let first_number = first_number_str.parse::<i32>()?;
-    let second_number = second_number_str.parse::<i32>()?;
+fn multiply(first_number_str: str, second_number_str: str) -> Result<int, ParseIntError> {
+    let first_number = first_number_str.parse::<int>()?;
+    let second_number = second_number_str.parse::<int>()?;
 
     Ok(first_number * second_number)
 }
 
-fn print(result: Result<i32, ParseIntError>) {
+fn print(result: Result<int, ParseIntError>) {
     match result {
         Ok(n)  => println!("n is {}", n),
         Err(e) => println!("Error: {}", e),
     }
 }
 
-fn main() {
+pub fn main() {
     print(multiply("10", "2"));
     print(multiply("t", "2"));
 }
 ```
 
-## The `try!` macro
-
-Before there was `?`, the same functionality was achieved with the `try!` macro.
-The `?` operator is now recommended, but you may still find `try!` when looking
-at older code. The same `multiply` function from the previous example
-would look like this using `try!`:
-
-```rust,editable,edition2015
-// To compile and run this example without errors, while using Cargo, change the value
-// of the `edition` field, in the `[package]` section of the `Cargo.toml` file, to "2015".
-
-use std::num::ParseIntError;
-
-fn multiply(first_number_str: &str, second_number_str: &str) -> Result<i32, ParseIntError> {
-    let first_number = try!(first_number_str.parse::<i32>());
-    let second_number = try!(second_number_str.parse::<i32>());
-
-    Ok(first_number * second_number)
-}
-
-fn print(result: Result<i32, ParseIntError>) {
-    match result {
-        Ok(n)  => println!("n is {}", n),
-        Err(e) => println!("Error: {}", e),
-    }
-}
-
-fn main() {
-    print(multiply("10", "2"));
-    print(multiply("t", "2"));
-}
-```
-
-[^†]: See [re-enter ?][re_enter_?] for more details.
-
-[re_enter_?]: ../multiple_error_types/reenter_question_mark.md
+[^†]: It actually means `unwrap` or
+`return Err(From::from(err))`. Since `From::from` is a conversion utility
+between different types, this means that if you `?` where the error is
+convertible to the return type, it will convert automatically.

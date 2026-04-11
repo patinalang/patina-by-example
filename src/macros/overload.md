@@ -3,7 +3,7 @@
 Macros can be overloaded to accept different combinations of arguments.
 In that regard, `macro_rules!` can work similarly to a match block:
 
-```rust,editable
+```rust,ignore,editable
 // `test!` will compare `$left` and `$right`
 // in different ways depending on how you invoke it:
 macro_rules! test {
@@ -24,8 +24,8 @@ macro_rules! test {
     };
 }
 
-fn main() {
-    test!(1i32 + 1 == 2i32; and 2i32 * 2 == 4i32);
+pub fn main() {
+    test!(1 + 1 == 2; and 2 * 2 == 4);
     test!(true; or false);
 }
 ```

@@ -11,17 +11,17 @@ type, hence providing a very simple mechanism for converting between several
 types. There are numerous implementations of this trait within the standard
 library for conversion of primitive and common types.
 
-For example we can easily convert a `str` into a `String`
+For example we can easily convert a `str` into a `bin`
 
-```rust
+```rust,ignore
 let my_str = "hello";
-let my_string = String::from(my_str);
+let my_bin = bin::from(my_str);
 ```
 
 We can do something similar for defining a conversion for our own type.
 
-```rust,editable
-use std::convert::From;
+```rust,ignore,editable
+use Std::Convert::From;
 
 #[derive(Debug)]
 struct Number {
@@ -34,7 +34,7 @@ impl From<i32> for Number {
     }
 }
 
-fn main() {
+pub fn main() {
     let num = Number::from(30);
     println!("My number is {:?}", num);
 }
@@ -47,8 +47,8 @@ defines how to convert a type into another type.
 
 Calling `into()` typically requires us to specify the result type as the compiler is unable to determine this most of the time.
 
-```rust,editable
-use std::convert::Into;
+```rust,ignore,editable
+use Std::Convert::Into;
 
 #[derive(Debug)]
 struct Number {
@@ -61,7 +61,7 @@ impl Into<Number> for i32 {
     }
 }
 
-fn main() {
+pub fn main() {
     let int = 5;
     // Try removing the type annotation
     let num: Number = int.into();
@@ -76,8 +76,8 @@ We do not need to provide an implementation for both traits.
 If you have implemented the `From` trait for your type, `Into` will call it
 when necessary. Note, however, that the converse is not true: implementing `Into` for your type will not automatically provide it with an implementation of `From`.
 
-```rust,editable
-use std::convert::From;
+```rust,ignore,editable
+use Std::Convert::From;
 
 #[derive(Debug)]
 struct Number {
@@ -91,7 +91,7 @@ impl From<i32> for Number {
     }
 }
 
-fn main() {
+pub fn main() {
     let int = 5;
     // use `Into`
     let num: Number = int.into();
@@ -99,5 +99,5 @@ fn main() {
 }
 ```
 
-[`From`]: https://doc.rust-lang.org/std/convert/trait.From.html
-[`Into`]: https://doc.rust-lang.org/std/convert/trait.Into.html
+[`From`]: from_into.md
+[`Into`]: from_into.md

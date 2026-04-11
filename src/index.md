@@ -1,13 +1,12 @@
-# Rust by Example
+# Patina by Example
 
-[Rust][rust] is a modern systems programming language focusing on safety, speed,
-and concurrency. It accomplishes these goals by being memory safe without using
-garbage collection.
+[Patina][patina] is a statically typed programming language for the [BEAM][beam] virtual machine,
+focusing on type safety and easy interop with broader [Elixir][elixir] ecosystem. Its syntax,
+type semantics, and much of its compiler code, is directly derived from [Rust][rust].
 
-Rust by Example (RBE) is a collection of runnable examples that illustrate various Rust
-concepts and standard libraries. To get even more out of these examples, don't forget
-to [install Rust locally][install] and check out the [official docs][std].
-Additionally for the curious, you can also [check out the source code for this site][home].
+Patina by Example is a collection of examples that illustrate various Patina concepts.
+It is a fork of the excellent [Rust By Example (RBE)][rbe], with many parts unchanged - where Patina
+and Rust syntax match exactly.
 
 Now let's begin!
 
@@ -31,35 +30,20 @@ Now let's begin!
 
 - [Modules](mod.md) - Organize code using modules
 
-- [Crates](crates.md) - A crate is a compilation unit in Rust. Learn to create a library.
-
-- [Cargo](cargo.md) - Go through some basic features of the official Rust package management tool.
-
-- [Attributes](attribute.md) - An attribute is metadata applied to some module, crate or item.
+- [Attributes](attribute.md) - An attribute is metadata applied to some module or item.
 
 - [Generics](generics.md) - Learn about writing a function or data type which can work for multiple types of arguments.
-
-- [Scoping rules](scope.md) - Scopes play an important part in ownership, borrowing, and lifetimes.
 
 - [Traits](trait.md) - A trait is a collection of methods defined for an unknown type: `Self`
 
 - [Macros](macros.md) - Macros are a way of writing code that writes other code, which is known as metaprogramming.
 
-- [Error handling](error.md) - Learn Rust way of handling failures.
-
-- [Std library types](std.md) - Learn about some custom types provided by `std` library.
-
-- [Std misc](std_misc.md) - More custom types for file handling, threads.
-
-- [Testing](testing.md) - All sorts of testing in Rust.
+- [Error handling](error.md) - Learn Patina way of handling failures.
 
 - [Unsafe Operations](unsafe.md) - Learn about entering a block of unsafe operations.
 
-- [Compatibility](compatibility.md) - Handling Rust's evolution and potential compatibility issues.
-
-- [Meta](meta.md) - Documentation, Benchmarking.
-
+[patina]: https://patina.pt/
+[beam]: https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)
+[elixir]: https://elixir-lang.org/
 [rust]: https://www.rust-lang.org/
-[install]: https://www.rust-lang.org/tools/install
-[std]: https://doc.rust-lang.org/std/
-[home]: https://github.com/rust-lang/rust-by-example
+[rbe]: https://github.com/rust-lang/rust-by-example

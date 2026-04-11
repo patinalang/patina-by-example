@@ -1,19 +1,18 @@
 # Aliasing
 
 The `type` statement can be used to give a new name to an existing type. Types
-must have `UpperCamelCase` names, or the compiler will raise a warning. The
-exception to this rule are the primitive types: `usize`, `f32`, etc.
+must have `UpperCamelCase` names, or the compiler will raise a warning.
 
-```rust,editable
-// `NanoSecond`, `Inch`, and `U64` are new names for `u64`.
-type NanoSecond = u64;
-type Inch = u64;
-type U64 = u64;
+```rust,ignore,editable
+// `NanoSecond`, `Inch`, and `Int` are new names for `int`.
+type NanoSecond = int;
+type Inch = int;
+type Int = int;
 
-fn main() {
-    // `NanoSecond` = `Inch` = `U64` = `u64`.
-    let nanoseconds: NanoSecond = 5 as u64;
-    let inches: Inch = 2 as U64;
+pub fn main() {
+    // `NanoSecond` = `Inch` = `Int` = `int`.
+    let nanoseconds: NanoSecond = 5 as int;
+    let inches: Inch = 2 as Int;
 
     // Note that type aliases *don't* provide any extra type safety, because
     // aliases are *not* new types
@@ -24,6 +23,7 @@ fn main() {
 }
 ```
 
+<!-- PATINA TODO: let's put in a good example once we have it -->
 The main use of aliases is to reduce boilerplate; for example the `io::Result<T>` type
 is an alias for the `Result<T, io::Error>` type.
 

@@ -9,7 +9,7 @@ is for type parameters.
 
 A type parameter is specified as generic by the use of angle brackets and upper
 [camel case][camelcase]: `<Aaa, Bbb, ...>`. "Generic type parameters" are
-typically represented as `<T>`. In Rust, "generic" also describes anything that
+typically represented as `<T>`. In Patina, "generic" also describes anything that
 accepts one or more generic type parameters `<T>`. Any type specified as a
 generic type parameter is generic, and everything else is concrete (non-generic).
 
@@ -26,7 +26,7 @@ has previously been defined as a `struct`.
 
 This example shows some of the syntax in action:
 
-```rust,editable
+```rust,ignore,editable
 // A concrete type `A`.
 struct A;
 
@@ -40,7 +40,7 @@ struct Single(A);
 // the concrete type `A` defined at the top.
 struct SingleGen<T>(T);
 
-fn main() {
+pub fn main() {
     // `Single` is concrete and explicitly takes `A`.
     let _s = Single(A);
 
@@ -51,7 +51,7 @@ fn main() {
 
     // `SingleGen` can also have a type parameter implicitly specified:
     let _t    = SingleGen(A); // Uses `A` defined at the top.
-    let _i32  = SingleGen(6); // Uses `i32`.
+    let _i32  = SingleGen(6); // Uses `int`.
     let _char = SingleGen('a'); // Uses `char`.
 }
 ```

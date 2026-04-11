@@ -6,12 +6,12 @@ format string.
 
 We can extend our `calculate!` macro from the previous section to be variadic:
 
-```rust,editable
+```rust,ignore,editable
 macro_rules! calculate {
     // The pattern for a single `eval`
     (eval $e:expr) => {
         {
-            let val: usize = $e; // Force types to be integers
+            let val: int = $e; // Force types to be integers
             println!("{} = {}", stringify!{$e}, val);
         }
     };
@@ -23,7 +23,7 @@ macro_rules! calculate {
     }};
 }
 
-fn main() {
+pub fn main() {
     calculate! { // Look ma! Variadic `calculate!`!
         eval 1 + 2,
         eval 3 + 4,

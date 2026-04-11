@@ -10,38 +10,38 @@ clear which trait's `get` method you're implementing.
 What about when it comes time to _call_ those methods? To disambiguate between
 them, we have to use Fully Qualified Syntax.
 
-```rust,editable
+```rust,ignore,editable
 trait UsernameWidget {
     // Get the selected username out of this widget
-    fn get(&self) -> String;
+    fn get(self) -> str;
 }
 
 trait AgeWidget {
     // Get the selected age out of this widget
-    fn get(&self) -> u8;
+    fn get(self) -> int;
 }
 
 // A form with both a UsernameWidget and an AgeWidget
 struct Form {
-    username: String,
-    age: u8,
+    username: str,
+    age: int,
 }
 
 impl UsernameWidget for Form {
-    fn get(&self) -> String {
-        self.username.clone()
+    fn get(self) -> str {
+        self.username
     }
 }
 
 impl AgeWidget for Form {
-    fn get(&self) -> u8 {
+    fn get(self) -> int {
         self.age
     }
 }
 
-fn main() {
+pub fn main() {
     let form = Form {
-        username: "rustacean".to_owned(),
+        username: "rustacean",
         age: 28,
     };
 
@@ -50,15 +50,9 @@ fn main() {
     // named `get`.
     // println!("{}", form.get());
 
-    let username = <Form as UsernameWidget>::get(&form);
-    assert_eq!("rustacean".to_owned(), username);
-    let age = <Form as AgeWidget>::get(&form);
+    let username = <Form as UsernameWidget>::get(form);
+    assert_eq!("rustacean", username);
+    let age = <Form as AgeWidget>::get(form);
     assert_eq!(28, age);
 }
 ```
-
-### See also:
-
-[The Rust Programming Language chapter on Fully Qualified syntax][trpl_fqsyntax]
-
-[trpl_fqsyntax]: https://doc.rust-lang.org/book/ch19-03-advanced-traits.html#fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name

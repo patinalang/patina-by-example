@@ -2,7 +2,9 @@
 
 This is the source code of the traditional Hello World program.
 
-```rust,editable
+```rust,ignore,editable
+// hello.pt
+
 // This is a comment, and is ignored by the compiler.
 // You can test this code by clicking the "Run" button over there ->
 // or if you prefer to use your keyboard, you can use the "Ctrl + Enter"
@@ -12,7 +14,7 @@ This is the source code of the traditional Hello World program.
 // You can always return to the original code by clicking the "Reset" button ->
 
 // This is the main function.
-fn main() {
+pub fn main() {
     // Statements here are executed when the compiled binary is called.
 
     // Print text to the console.
@@ -23,27 +25,17 @@ fn main() {
 `println!` is a [*macro*][macros] that prints text to the
 console.
 
-A binary can be generated using the Rust compiler: `rustc`.
+A BEAM module can be generated using the Patina compiler: `patinac`.
 
 ```bash
-$ rustc hello.rs
+$ patinac hello.pt
 ```
 
-`rustc` will produce a `hello` binary that can be executed.
+`patinac` will produce a `.beam` file that can be executed with `patina run`.
 
 ```bash
-$ ./hello
+$ patina run -m Hello
 Hello World!
-```
-
-### Activity
-
-Click 'Run' above to see the expected output. Next, add a new
-line with a second `println!` macro so that the output shows:
-
-```text
-Hello World!
-I'm a Rustacean!
 ```
 
 [macros]: macros.md

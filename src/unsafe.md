@@ -1,62 +1,75 @@
 # Unsafe Operations
 
-As an introduction to this section, to borrow from [the official docs][unsafe],
+As an introduction to this section, to borrow from [the official Rust docs][Rust unsafe],
 "one should try to minimize the amount of unsafe code in a code base." With that
-in mind, let's get started! Unsafe annotations in Rust are used to bypass
-protections put in place by the compiler; specifically, there are four primary
+in mind, let's get started! Unsafe annotations in Patina are used to bypass
+protections put in place by the compiler; specifically, there are two primary
 things that unsafe is used for:
 
-* dereferencing raw pointers
-* calling functions or methods which are `unsafe` (including calling a function
-  over FFI, see [a previous chapter](std_misc/ffi.md) of the book)
-* accessing or modifying static mutable variables
-* implementing unsafe traits
-
-### Raw Pointers
-
-Raw pointers `*` and references `&T` function similarly, but references are
-always safe because they are guaranteed to point to valid data due to the
-borrow checker. Dereferencing a raw pointer can only be done through an unsafe
-block.
-
-```rust,editable
-fn main() {
-    let raw_p: *const u32 = &10;
-
-    unsafe {
-        assert!(*raw_p == 10);
-    }
-}
-```
+* calling functions or methods which are `unsafe`
+* matching `term` type into Patina types by their runtime representation
 
 ### Calling Unsafe Functions
 
 Some functions can be declared as `unsafe`, meaning it is the programmer's
 responsibility to ensure correctness instead of the compiler's. One example
-of this is [`std::slice::from_raw_parts`] which will create a slice given a
-pointer to the first element and a length.
+of this is `term::try_cast_into`, which will attempt to convert a runtime value
+into a Patina type based only on its non-unique runtime representation.
 
-```rust,editable
-use std::slice;
+```rust,ignore,editable
+struct Celcius(int);
+struct Fahrenheit(int);
 
-fn main() {
-    let some_vector = vec![1, 2, 3, 4];
-
-    let pointer = some_vector.as_ptr();
-    let length = some_vector.len();
+pub fn main() {
+    let degrees_term = Celcius(10) as term;
 
     unsafe {
-        let my_slice: &[u32] = slice::from_raw_parts(pointer, length);
-
-        assert_eq!(some_vector.as_slice(), my_slice);
+        // Celcius(10) and Fahrenheit(10) have the same runtime representation,
+        // so `try_cast_into` will succeed -- but `degrees_term` wasn't Fahrenheit!
+        // Even with some guardrails, this circumvents the type system - so it's unsafe.
+        let fahrenheit = degrees_term.try_cast_into::<Fahrenheit>().unwrap();
     }
 }
 ```
 
-For `slice::from_raw_parts`, one of the assumptions which *must* be upheld is
-that the pointer passed in points to valid memory and that the memory pointed to
-is of the correct type. If these invariants aren't upheld then the program's
-behaviour is undefined and there is no knowing what will happen.
+### Matching `term` by runtime representation
 
-[unsafe]: https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html
-[`std::slice::from_raw_parts`]: https://doc.rust-lang.org/std/slice/fn.from_raw_parts.html
+This is different syntax, but is unsafe for the same reason as `try_cast_into` above.
+
+In safe code, `match` and `receive` can only destructure `term`s into BEAM-native types.
+When wrapped in `unsafe`, both of these blocks can try to destructure into Patina by their
+runtime representation, similarly to `try_cast_into`:
+
+```rust,ignore,editable
+pub fn main() {
+    let v = Option::<int>::None as term;
+
+    let safe_destription = match v {
+        a"nil" => "the atom nil",
+        (a"some", val) => "some value (tagged?)",
+        val => "some value (untagged?)",
+        // Option<str>::None => "string option (none)",
+        // ^ERROR - can't safely match by runtime representation!
+    };
+
+    let unsafe_description = unsafe match v {
+        Option::<str>::None => "an empty string option",
+        Option::<int>::None => "an empty integer option",
+        a"nil" => "the atom nil",
+        _ => "something else",
+    };
+
+    println!("{}, {}", safe_description, unsafe_description);
+    // "the atom nil, an empty string option"
+}
+```
+
+
+## See also:
+
+[term][term], [unsafe match][unsafe match], [unsafe receive][unsafe receive]
+
+[Rust unsafe]: https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html
+[term]: primitives/term.md
+[unsafe match]: flow_control/match/unsafe_match.md
+[unsafe receive]: flow_control/receive/unsafe_receive.md

@@ -1,55 +1,54 @@
 # Returning Traits with `dyn`
 
-The Rust compiler needs to know how much space every function's return type requires. This means all
-your functions have to return a concrete type. Unlike other languages, if you have a trait like
-`Animal`, you can't write a function that returns `Animal`, because its different implementations
-will need different amounts of memory.
+Patina tries to represent `struct`s and `enums` efficiently. For example, single-field structs
+are by default represented in runtime as that field alone, removing the overhead associated with
+(un)wrapping values. `struct Celcius(int)` will just be an integer in the BEAM VM runtime, and
+`let c = Celcius(10); c.is_freezing` will statically dispatch the call to the `Celcius` module.
 
-However, there's an easy workaround. Instead of returning a trait object directly, our functions
-return a `Box` which _contains_ some `Animal`. A `box` is just a reference to some memory in the
-heap. Because a reference has a statically-known size, and the compiler can guarantee it points to a
-heap-allocated `Animal`, we can return a trait from our function!
+This is why, similarly to Rust, all your functions have to return a concrete type. Just like Rust,
+if you have a trait like `Animal`, you can't write a function that returns `Animal`, because Patina
+may not have enough runtime information to dispatch function calls to the concrete implementation.
 
-Rust tries to be as explicit as possible whenever it allocates memory on the heap. So if your
-function returns a pointer-to-trait-on-heap in this way, you need to write the return type with the
-`dyn` keyword, e.g. `Box<dyn Animal>`.
+However, you can *make* Patina store enough information by using the `dyn` keyword. Objects returned
+as `dyn Animal` will be represented with additional runtime information, and calling `Animal`
+methods will require an additional dynamic dispatch - this is why `dyn` is clearly marked in code,
+instead of being an implicit behaviour.
 
-```rust,editable
+```rust,ignore,editable
 struct Sheep {}
 struct Cow {}
 
 trait Animal {
     // Instance method signature
-    fn noise(&self) -> &'static str;
+    fn noise(self) -> str;
 }
 
 // Implement the `Animal` trait for `Sheep`.
 impl Animal for Sheep {
-    fn noise(&self) -> &'static str {
+    fn noise(self) -> str {
         "baaaaah!"
     }
 }
 
 // Implement the `Animal` trait for `Cow`.
 impl Animal for Cow {
-    fn noise(&self) -> &'static str {
+    fn noise(self) -> str {
         "moooooo!"
     }
 }
 
 // Returns some struct that implements Animal, but we don't know which one at compile time.
-fn random_animal(random_number: f64) -> Box<dyn Animal> {
+fn random_animal(random_number: float) -> dyn Animal {
     if random_number < 0.5 {
-        Box::new(Sheep {})
+        Sheep {}
     } else {
-        Box::new(Cow {})
+        Cow {}
     }
 }
 
-fn main() {
+pub fn main() {
     let random_number = 0.234;
     let animal = random_animal(random_number);
     println!("You've randomly chosen an animal, and it says {}", animal.noise());
 }
-
 ```

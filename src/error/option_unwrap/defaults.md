@@ -9,11 +9,11 @@ There is more than one way to unpack an `Option` and fall back on a default if i
 
 `or()`is chainable and eagerly evaluates its argument, as is shown in the following example. Note that because `or`'s arguments are evaluated eagerly, the variable passed to `or` is moved.
 
-```rust,editable
+```rust,ignore,editable
 #[derive(Debug)]
 enum Fruit { Apple, Orange, Banana, Kiwi, Lemon }
 
-fn main() {
+pub fn main() {
     let apple = Some(Fruit::Apple);
     let orange = Some(Fruit::Orange);
     let no_fruit: Option<Fruit> = None;
@@ -34,11 +34,11 @@ fn main() {
 
 Another alternative is to use `or_else`, which is also chainable, and evaluates lazily, as is shown in the following example:
 
-```rust,editable
+```rust,ignore,editable
 #[derive(Debug)]
 enum Fruit { Apple, Orange, Banana, Kiwi, Lemon }
 
-fn main() {
+pub fn main() {
     let no_fruit: Option<Fruit> = None;
     let get_kiwi_as_fallback = || {
         println!("Providing kiwi as fallback");
@@ -62,11 +62,11 @@ fn main() {
 
 To make sure that an `Option` contains a value, we can use `get_or_insert` to modify it in place with a fallback value, as is shown in the following example. Note that `get_or_insert` eagerly evaluates its parameter, so variable `apple` is moved:
 
-```rust,editable
+```rust,ignore,editable
 #[derive(Debug)]
 enum Fruit { Apple, Orange, Banana, Kiwi, Lemon }
 
-fn main() {
+pub fn main() {
     let mut my_fruit: Option<Fruit> = None;
     let apple = Fruit::Apple;
     let first_available_fruit = my_fruit.get_or_insert(apple);
@@ -83,11 +83,11 @@ fn main() {
 
 Instead of explicitly providing a value to fall back on, we can pass a closure to `get_or_insert_with`, as follows:
 
-```rust,editable
+```rust,ignore,editable
 #[derive(Debug)]
 enum Fruit { Apple, Orange, Banana, Kiwi, Lemon }
 
-fn main() {
+pub fn main() {
     let mut my_fruit: Option<Fruit> = None;
     let get_lemon_as_fallback = || {
         println!("Providing lemon as fallback");
@@ -111,14 +111,3 @@ fn main() {
     // my_apple is unchanged: Some(Apple)
 }
 ```
-
-### See also:
-
-[`closures`][closures], [`get_or_insert`][get_or_insert], [`get_or_insert_with`][get_or_insert_with], [`moved variables`][moved], [`or`][or], [`or_else`][or_else]
-
-[closures]: https://doc.rust-lang.org/book/ch13-01-closures.html
-[get_or_insert]: https://doc.rust-lang.org/core/option/enum.Option.html#method.get_or_insert
-[get_or_insert_with]: https://doc.rust-lang.org/core/option/enum.Option.html#method.get_or_insert_with
-[moved]: https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html
-[or]: https://doc.rust-lang.org/core/option/enum.Option.html#method.or
-[or_else]: https://doc.rust-lang.org/core/option/enum.Option.html#method.or_else

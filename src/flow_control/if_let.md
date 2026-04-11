@@ -2,8 +2,8 @@
 
 For some use cases, when matching enums, `match` is awkward. For example:
 
-```rust
-// Make `optional` of type `Option<i32>`
+```rust,ignore
+// Make `optional` of type `Option<int>`
 let optional = Some(7);
 
 match optional {
@@ -18,12 +18,12 @@ match optional {
 `if let` is cleaner for this use case and in addition allows various
 failure options to be specified:
 
-```rust,editable
-fn main() {
-    // All have type `Option<i32>`
+```rust,ignore,editable
+pub fn main() {
+    // All have type `Option<int>`
     let number = Some(7);
-    let letter: Option<i32> = None;
-    let emoticon: Option<i32> = None;
+    let letter: Option<int> = None;
+    let emoticon: Option<int> = None;
 
     // The `if let` construct reads: "if `let` destructures `number` into
     // `Some(i)`, evaluate the block (`{}`).
@@ -57,7 +57,7 @@ fn main() {
 
 In the same way, `if let` can be used to match any enum value:
 
-```rust,editable
+```rust,ignore,editable
 // Our example enum
 enum Foo {
     Bar,
@@ -65,7 +65,7 @@ enum Foo {
     Qux(u32)
 }
 
-fn main() {
+pub fn main() {
     // Create example variables
     let a = Foo::Bar;
     let b = Foo::Baz;
@@ -99,12 +99,12 @@ Another benefit is that `if let` allows us to match non-parameterized enum varia
 
 Would you like a challenge? Fix the following example to use `if let`:
 
-```rust,editable,ignore,mdbook-runnable
+```rust,editable,ignore
 // This enum purposely neither implements nor derives PartialEq.
 // That is why comparing Foo::Bar == a fails below.
 enum Foo {Bar}
 
-fn main() {
+pub fn main() {
     let a = Foo::Bar;
 
     // Variable a matches Foo::Bar
@@ -117,8 +117,7 @@ fn main() {
 
 ### See also:
 
-[`enum`][enum], [`Option`][option], and the [RFC][if_let_rfc]
+[`enum`][enum], [`Option`][option]
 
 [enum]: ../custom_types/enum.md
-[if_let_rfc]: https://github.com/rust-lang/rfcs/pull/160
-[option]: ../std/option.md
+[option]: ../error/option_unwrap.md

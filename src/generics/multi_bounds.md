@@ -3,35 +3,36 @@
 Multiple bounds for a single type can be applied with a `+`. Like normal, different types are
 separated with `,`.
 
-```rust,editable
-use std::fmt::{Debug, Display};
+<!-- PATINA TODO: once it settles, all examples of `use Std::` and `use Std::` should
+have consistent casing -->
+```rust,ignore,editable
+use Std::Fmt::{Debug, Display};
 
-fn compare_prints<T: Debug + Display>(t: &T) {
+fn compare_prints<T: Debug + Display>(t: T) {
     println!("Debug: `{:?}`", t);
     println!("Display: `{}`", t);
 }
 
-fn compare_types<T: Debug, U: Debug>(t: &T, u: &U) {
+fn compare_types<T: Debug, U: Debug>(t: T, u: U) {
     println!("t: `{:?}`", t);
     println!("u: `{:?}`", u);
 }
 
-fn main() {
+pub fn main() {
     let string = "words";
-    let array = [1, 2, 3];
-    let vec = vec![1, 2, 3];
+    let list = [1, 2, 3];
+    let tuple = (1, 2, 3);
 
-    compare_prints(&string);
-    //compare_prints(&array);
+    compare_prints(string);
+    //compare_prints(list);
     // TODO ^ Try uncommenting this.
 
-    compare_types(&array, &vec);
+    compare_types(list, tuple);
 }
 ```
 
 ### See also:
 
-[`std::fmt`][fmt] and [`trait`s][traits]
+[`trait`s][traits]
 
-[fmt]: ../hello/print.md
 [traits]: ../trait.md

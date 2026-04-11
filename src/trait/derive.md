@@ -7,34 +7,32 @@ manually implemented if a more complex behavior is required.
 The following is a list of derivable traits:
 
 * Comparison traits:
-  [`Eq`][eq], [`PartialEq`][partial-eq], [`Ord`][ord], [`PartialOrd`][partial-ord].
-* [`Clone`][clone], to create `T` from `&T` via a copy.
-* [`Copy`][copy], to give a type 'copy semantics' instead of 'move semantics'.
-* [`Hash`][hash], to compute a hash from `&T`.
-* [`Default`][default], to create an empty instance of a data type.
-* [`Debug`][debug], to format a value using the `{:?}` formatter.
+  `Eq`, `PartialEq`, `Ord`, `PartialOrd`.
+* `Hash`, to compute a hash from `T`.
+* `Default`, to create an empty instance of a data type.
+* `Debug`, to format a value using the `{:?}` formatter.
 
-```rust,editable
+```rust,ignore,editable
 // `Centimeters`, a tuple struct that can be compared
 #[derive(PartialEq, PartialOrd)]
-struct Centimeters(f64);
+struct Centimeters(float);
 
 // `Inches`, a tuple struct that can be printed
 #[derive(Debug)]
-struct Inches(i32);
+struct Inches(int);
 
 impl Inches {
-    fn to_centimeters(&self) -> Centimeters {
-        let &Inches(inches) = self;
+    fn to_centimeters(self) -> Centimeters {
+        let Inches(inches) = self;
 
-        Centimeters(inches as f64 * 2.54)
+        Centimeters(inches as float * 2.54)
     }
 }
 
 // `Seconds`, a tuple struct with no additional attributes
-struct Seconds(i32);
+struct Seconds(int);
 
-fn main() {
+pub fn main() {
     let _one_second = Seconds(1);
 
     // Error: `Seconds` can't be printed; it doesn't implement the `Debug` trait
@@ -62,18 +60,4 @@ fn main() {
 }
 ```
 
-### See also:
-
-[`derive`][derive]
-
 [attribute]: ../attribute.md
-[eq]: https://doc.rust-lang.org/std/cmp/trait.Eq.html
-[partial-eq]: https://doc.rust-lang.org/std/cmp/trait.PartialEq.html
-[ord]: https://doc.rust-lang.org/std/cmp/trait.Ord.html
-[partial-ord]: https://doc.rust-lang.org/std/cmp/trait.PartialOrd.html
-[clone]: https://doc.rust-lang.org/std/clone/trait.Clone.html
-[copy]: https://doc.rust-lang.org/core/marker/trait.Copy.html
-[hash]: https://doc.rust-lang.org/std/hash/trait.Hash.html
-[default]: https://doc.rust-lang.org/std/default/trait.Default.html
-[debug]: https://doc.rust-lang.org/std/fmt/trait.Debug.html
-[derive]: https://doc.rust-lang.org/reference/attributes.html#derive

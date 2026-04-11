@@ -1,16 +1,16 @@
 # `macro_rules!`
 
-Rust provides a powerful macro system that allows metaprogramming. As you've
+Patina provides a powerful macro system that allows metaprogramming. As you've
 seen in previous chapters, macros look like functions, except that their name
 ends with a bang `!`, but instead of generating a function call, macros are
 expanded into source code that gets compiled with the rest of the program.
-However, unlike macros in C and other languages, Rust macros are expanded into
+Like macros in Rust and Elixir, Patina macros are expanded into
 abstract syntax trees, rather than string preprocessing, so you don't get
 unexpected precedence bugs.
 
 Macros are created using the `macro_rules!` macro.
 
-```rust,editable
+```rust,ignore,editable
 // This is a simple macro named `say_hello`.
 macro_rules! say_hello {
     // `()` indicates that the macro takes no argument.
@@ -20,7 +20,7 @@ macro_rules! say_hello {
     };
 }
 
-fn main() {
+pub fn main() {
     // This call will expand into `println!("Hello!")`
     say_hello!()
 }

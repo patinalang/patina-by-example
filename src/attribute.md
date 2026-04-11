@@ -1,47 +1,46 @@
 # Attributes
 
-An attribute is metadata applied to some module, crate or item. This metadata
+An attribute is metadata applied to some module or item. This metadata
 can be used to/for:
 
-<!-- TODO: Link these to their respective examples -->
-
-* [conditional compilation of code][cfg]
-* [set crate name, version and type (binary or library)][crate]
-* disable [lints][lint] (warnings)
-* enable compiler features (macros, glob imports, etc.)
-* link to a foreign library
-* mark functions as unit tests
-* mark functions that will be part of a benchmark
+* set BEAM runtime representation for [structs][structs repr] and [enums][enums repr]
+* [set BEAM module name for Patina modules][mod visibility]
+* [set BEAM module names for Patina structs and enums][struct visibility]
 * [attribute like macros][macros]
 
 Attributes look like `#[outer_attribute]` or `#![inner_attribute]`,
 with the difference between them being where they apply.
 
-* `#[outer_attribute]` applies to the [item][item] immediately
+* `#[outer_attribute]` applies to the item immediately
   following it. Some examples of items are: a function, a module
   declaration, a constant, a structure, an enum. Here is an example
   where attribute `#[derive(Debug)]` applies to the struct
   `Rectangle`:
 
-  ```rust
+  ```rust,ignore
   #[derive(Debug)]
   struct Rectangle {
-      width: u32,
-      height: u32,
+      width: int,
+      height: int,
   }
   ```
 
-* `#![inner_attribute]` applies to the enclosing [item][item] (typically a
-  module or a crate). In other words, this attribute is interpreted as
+* `#![inner_attribute]` applies to the enclosing item (typically a
+  module). In other words, this attribute is interpreted as
   applying to the entire scope in which it's placed. Here is an example
-  where `#![allow(unused_variables)]` applies to the whole crate (if
-  placed in `main.rs`):
+  where `#![beam_module("Elixir.MyMod")]` applies to the enclosing module:
 
-  ```rust
-  #![allow(unused_variables)]
+  ```rust,ignore
+  mod MyMod {
+    #![beam_module("Elixir.MyMod")]
 
-  fn main() {
-      let x = 3; // This would normally warn about an unused variable.
+    fn inner() {
+      println!("inner called!");
+    }
+  }
+
+  pub fn main() {
+    MyMod::inner();
   }
   ```
 
@@ -61,8 +60,8 @@ Attributes can have multiple values and can be separated over multiple lines, to
             value4, value5)]
 ```
 
-[cfg]: attribute/cfg.md
-[crate]: attribute/crate.md
-[item]: https://doc.rust-lang.org/stable/reference/items.html
-[lint]: https://en.wikipedia.org/wiki/Lint_%28software%29
-[macros]: https://doc.rust-lang.org/book/ch19-06-macros.html#attribute-like-macros
+[structs repr]: custom_types/structs/repr.md
+[enums repr]: custom_types/enum/repr.md
+[mod visibility]: mod/visibility.md
+[struct visibility]: mod/struct_visibility.md
+[macros]: macros.md

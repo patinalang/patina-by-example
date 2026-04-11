@@ -6,13 +6,13 @@ generic traits for converting between types. Unlike `From`/`Into`, the
 return [`Result`]s.
 
 [from-into]: from_into.html
-[`TryFrom`]: https://doc.rust-lang.org/std/convert/trait.TryFrom.html
-[`TryInto`]: https://doc.rust-lang.org/std/convert/trait.TryInto.html
-[`Result`]: https://doc.rust-lang.org/std/result/enum.Result.html
+[`TryFrom`]: try_from_try_into.md
+[`TryInto`]: try_from_try_into.md
+[`Result`]: ../error/result.md
 
-```rust,editable
-use std::convert::TryFrom;
-use std::convert::TryInto;
+```rust,ignore,editable
+use Std::Convert::TryFrom;
+use Std::Convert::TryInto;
 
 #[derive(Debug, PartialEq)]
 struct EvenNumber(i32);
@@ -29,7 +29,7 @@ impl TryFrom<i32> for EvenNumber {
     }
 }
 
-fn main() {
+pub fn main() {
     // TryFrom
 
     assert_eq!(EvenNumber::try_from(8), Ok(EvenNumber(8)));

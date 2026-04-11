@@ -2,7 +2,7 @@
 
 Diverging functions never return. They are marked using `!`, which is an empty type.
 
-```rust
+```rust,ignore
 fn foo() -> ! {
     panic!("This call never returns.");
 }
@@ -15,12 +15,12 @@ different from the `()` type, which has exactly one possible value.
 For example, this function returns as usual, although there is no information
 in the return value.
 
-```rust
+```rust,ignore
 fn some_fn() {
     ()
 }
 
-fn main() {
+pub fn main() {
     let _a: () = some_fn();
     println!("This function returns and you can see this line.");
 }
@@ -31,8 +31,12 @@ As opposed to this function, which will never return the control back to the cal
 ```rust,ignore
 #![feature(never_type)]
 
-fn main() {
-    let x: ! = panic!("This call never returns.");
+fn some_fn() -> ! {
+    panic!("This call never returns.");
+}
+
+pub fn main() {
+    let _a = some_fn();
     println!("You will never see this line!");
 }
 ```
@@ -42,18 +46,18 @@ often handy. The main advantage of this type is that it can be cast to any other
 type, making it versatile in situations where an exact type is required, such as
 in match branches. This flexibility allows us to write code like this:
 
-```rust
-fn main() {
-    fn sum_odd_numbers(up_to: u32) -> u32 {
+```rust,ignore
+pub fn main() {
+    fn sum_odd_numbers(up_to: int) -> int {
         let mut acc = 0;
         for i in 0..up_to {
-            // Notice that the return type of this match expression must be u32
+            // Notice that the return type of this match expression must be int
             // because of the type of the "addition" variable.
-            let addition: u32 = match i%2 == 1 {
-                // The "i" variable is of type u32, which is perfectly fine.
+            let addition: int = match i%2 == 1 {
+                // The "i" variable is of type int, which is perfectly fine.
                 true => i,
                 // On the other hand, the "continue" expression does not return
-                // u32, but it is still fine, because it never returns and therefore
+                // int, but it is still fine, because it never returns and therefore
                 // does not violate the type requirements of the match expression.
                 false => continue,
             };

@@ -3,8 +3,8 @@
 Similar to `if let`, `while let` can make awkward `match` sequences
 more tolerable. Consider the following sequence that increments `i`:
 
-```rust
-// Make `optional` of type `Option<i32>`
+```rust,ignore
+// Make `optional` of type `Option<int>`
 let mut optional = Some(0);
 
 // Repeatedly try this test.
@@ -30,9 +30,9 @@ loop {
 
 Using `while let` makes this sequence much nicer:
 
-```rust,editable
-fn main() {
-    // Make `optional` of type `Option<i32>`
+```rust,ignore,editable
+pub fn main() {
+    // Make `optional` of type `Option<int>`
     let mut optional = Some(0);
 
     // This reads: "while `let` destructures `optional` into
@@ -55,8 +55,7 @@ fn main() {
 
 ### See also:
 
-[`enum`][enum], [`Option`][option], and the [RFC][while_let_rfc]
+[`enum`][enum], [`Option`][option]
 
 [enum]: ../custom_types/enum.md
-[option]: ../std/option.md
-[while_let_rfc]: https://github.com/rust-lang/rfcs/pull/214
+[option]: ../error/option_unwrap.md

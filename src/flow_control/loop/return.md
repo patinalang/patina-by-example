@@ -5,8 +5,8 @@ operation returns a value though, you might need to pass it to the rest of the
 code: put it after the `break`, and it will be returned by the `loop`
 expression.
 
-```rust,editable
-fn main() {
+```rust,ignore,editable
+pub fn main() {
     let mut counter = 0;
 
     let result = loop {
