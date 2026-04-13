@@ -57,6 +57,7 @@
             - [structs](flow_control/match/destructuring/destructure_structures.md)
         - [Guards](flow_control/match/guard.md)
         - [Binding](flow_control/match/binding.md)
+        - [Binary matching](flow_control/match/binary_matching.md)
         - [`unsafe match`](flow_control/match/unsafe_match.md)
     - [receive](flow_control/receive.md)
         - [`unsafe receive`](flow_control/receive/unsafe_receive.md)

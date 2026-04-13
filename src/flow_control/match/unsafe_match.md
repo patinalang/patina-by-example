@@ -16,6 +16,7 @@ pub fn main() {
     let safe_destription = match v {
         a"nil" => "the atom nil",
         (a"some", val) => "some value (tagged?)",
+        int(_) => "some integer value (untagged?)",
         val => "some value (untagged?)",
         // Option<str>::None => "string option (none)",
         // ^ERROR - can't safely match by runtime representation!
