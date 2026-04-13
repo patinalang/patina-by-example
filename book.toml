@@ -14,9 +14,6 @@ enable = true
 git-repository-url = "https://github.com/patina-lang/patina-by-example"
 edit-url-template = "https://github.com/patina-lang/patina-by-example/edit/main/{path}"
 hash-files = true
-additional-css = [
-  "theme/css/language-picker.css",
-]
 
 [output.html.search]
 use-boolean-and = true
