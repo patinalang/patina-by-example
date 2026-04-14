@@ -26,23 +26,23 @@ enum TaggedEnum {
 pub fn main() {
     // Unit variants are represented directly as atoms.
     println!("{:?}", TaggedEnum::Unit as term);
-    // a"Patina.ByExample.TaggedEnum.Unit"
+    // a"Elixir.Patina.ByExample.TaggedEnum.Unit"
 
     // Both tuple- and struct-style variants are represented as tagged tuples.
     println!("{:?}", TaggedEnum::TupleStyle("hello") as term)
-    // (a"Patina.ByExample.TaggedEnum.TupleStyle", "hello")
+    // (a"Elixir.Patina.ByExample.TaggedEnum.TupleStyle", "hello")
 
     println!("{:?}", TaggedEnum::StructStyle{x: 1, y: 2} as term)
-    // (a"Patina.ByExample.TaggedEnum.StructStyle", 1, 2)
+    // (a"Elixir.Patina.ByExample.TaggedEnum.StructStyle", 1, 2)
 
     // Unit elements are omitted in the runtime representation. If all elements
     // of the variant are unit type, the variant is represented directly
     // as an atom.
     println!("{:?}", TaggedEnum::WithUnitElem((), 42) as term)
-    // (a"Patina.ByExample.TaggedEnum.WithUnitElem", 42)
+    // (a"Elixir.Patina.ByExample.TaggedEnum.WithUnitElem", 42)
 
     println!("{:?}", TaggedEnum::WithOneUnitElem(()) as term)
-    // a"Patina.ByExample.TaggedEnum.WithOneUnitElem"
+    // a"Elixir.Patina.ByExample.TaggedEnum.WithOneUnitElem"
 
     // You can set use a custom tag by specifying it with `tag` attribute.
     println!("{:?}", TaggedEnum::WithCustomTag as term)
@@ -97,7 +97,7 @@ enum TransparentEnum {
 // are not uniquely distinguishable at runtime:
 //
 //   TransparentEnum::MyName ==
-//     TransparentEnum::OrAtom(a"Patina.ByExample.TransparentEnum.MyName")
+//     TransparentEnum::OrAtom(a"Elixir.Patina.ByExample.TransparentEnum.MyName")
 //
 #[repr(transparent)]
 enum InvalidTransparentEnum {
@@ -107,13 +107,13 @@ enum InvalidTransparentEnum {
 
 pub fn main() {
     println!("{:?}", TransparentEnum::Unit as term)
-    // a"Patina.ByExample.TransparentEnum.Unit"
+    // a"Elixir.Patina.ByExample.TransparentEnum.Unit"
 
     println!("{:?}", TransparentEnum::TupleStyle(200, "hello") as term)
     // (200, "hello")
 
     println!("{:?}", TransparentEnum::StructStyle{point: Point{x: 1, y: 2}} as term)
-    // #{ a"__struct__" => a"Patina.ByExample.Point", a"x" => 1, a"y" => 2 }
+    // #{ a"__struct__" => a"Elixir.Patina.ByExample.Point", a"x" => 1, a"y" => 2 }
 
     // ForcedTagVariant is tagged while other variants are transparent.
     // This tag distinguishes it from the `TupleStyle` variant, even though

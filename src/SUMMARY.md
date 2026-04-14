@@ -79,6 +79,8 @@
     - [`super` and `self`](mod/super.md)
     - [File hierarchy](mod/split.md)
 
+- [Packages](pkg.md)
+
 - [Attributes](attribute.md)
 
 - [Generics](generics.md)

@@ -28,7 +28,9 @@ Now let's begin!
 
 - [Functions](fn.md) - Learn about Methods, Closures and Higher Order Functions.
 
-- [Modules](mod.md) - Organize code using modules
+- [Modules](mod.md) - Organize code using modules.
+
+- [Packages](pkg.md) - Organize modules into distributable packages.
 
 - [Attributes](attribute.md) - An attribute is metadata applied to some module or item.
 

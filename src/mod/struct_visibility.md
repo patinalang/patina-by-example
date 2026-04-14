@@ -8,7 +8,7 @@ where it is defined, and has the goal of hiding information (encapsulation).
 ```rust,ignore,editable
 mod My {
     // On BEAM side, struct `RenamedStruct` and its functions will live
-    // in its own BEAM module `Patina.MyPkg.My.RenamedStruct.beam` .
+    // in its own BEAM module `Elixir.Patina.MyPkg.My.RenamedStruct.beam` .
     // However, this is configurable so you can name your BEAM module anything.
     #[beam_module("Elixir.RenamedStruct")]
     pub struct RenamedStruct {

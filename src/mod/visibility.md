@@ -9,10 +9,12 @@ accessed from outside the module scope.
 // Unlike Rust, Patina uses CamelCase for module naming.
 // This makes calling Patina code from Elixir significantly more ergonomic.
 mod MyMod {
-    // On BEAM side, module `MyMod` will be saved as `Patina.MyPkg.MyMod.beam` .
+    // On BEAM side, module `MyMod` will be saved as `Elixir.Patina.MyPkg.MyMod.beam` .
     // However, this is configurable so you can name your BEAM module anything.
-    // For example, to replace `MyMod` written in Elixir:
+    // For example, to replace an Elixir `MyMod` module:
     #![beam_module("Elixir.MyMod")]
+    // Note that this only changes the BEAM module name for the current
+    // Patina module, and doesn't affect the names of its submodules!
 
     // Items in modules default to private visibility.
     fn private_function() {

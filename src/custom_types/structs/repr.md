@@ -50,10 +50,10 @@ struct Foo(int)
 
 pub fn main() {
     println("{:?}", Point{x: 1, y: 2} as term);
-    // #{a"__struct__" => a"Patina.ByExample.Point", a"x" => 5.2, a"y" => 0.4}
+    // #{a"__struct__" => a"Elixir.Patina.ByExample.Point", a"x" => 5.2, a"y" => 0.4}
 
     println("{:?}", Foo(42) as term);
-    // #{a"__struct__" => a"Patina.ByExample.Foo", a"0" => 42}
+    // #{a"__struct__" => a"Elixir.Patina.ByExample.Foo", a"0" => 42}
 }
 ```
 
@@ -74,10 +74,10 @@ struct Bar{ x: int, y: int }
 
 pub fn main() {
     println("{:?}", Pair(42, 3.14) as term);
-    // (a"Patina.ByExample.Pair", 42, 3.14)
+    // (a"Elixir.Patina.ByExample.Pair", 42, 3.14)
 
     println("{:?}", Bar(x: 1, y: 2) as term);
-    // (a"Patina.ByExample.Bar", 1, 2)
+    // (a"Elixir.Patina.ByExample.Bar", 1, 2)
 }
 ```
 
@@ -90,6 +90,6 @@ struct Unit;
 
 pub fn main() {
     println("{:?}", Unit as term);
-    // a"Patina.ByExample.Unit"
+    // a"Elixir.Patina.ByExample.Unit"
 }
 ```

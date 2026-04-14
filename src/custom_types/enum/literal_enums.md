@@ -48,7 +48,7 @@ enum AllUnits {
 
 pub fn main() {
     println!("{:?}", AllUnits::Foo as atom)
-    // a"Patina.ByExample.AllUnits.Foo"
+    // a"Elixir.Patina.ByExample.AllUnits.Foo"
 }
 ```
 
