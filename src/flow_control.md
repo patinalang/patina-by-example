@@ -5,8 +5,8 @@ An integral part of any programming language are ways to modify control flow:
 
 ### Variable rebinding inside flow control
 
-Unlike many other languages on BEAM, Patina code can rebind variables inside most control flow
-constructs, in a way that is visible outside of the block.
+Unlike many other languages on BEAM, in most control flow blocks Patina code can rebind variables
+in a way that is visible outside of the block.
 
 ```rust,ignore,editable
 pub fn main() {
@@ -45,6 +45,6 @@ pub fn main() {
         n = 30;
         // ^ERROR! External variable `n` cannot be rebound inside a try block
     } catch {
-        1 => println!("caught 1!");
+        Throw(1) => println!("caught 1!");
     }
 }

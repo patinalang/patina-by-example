@@ -24,13 +24,32 @@ pub fn main() {
     try {
         open_resource()
     } catch {
-        Panic(message) => println!("panic! {}", message),
-        ArgumentError(message) => println("badarg! {}", message),
-        ElixirError(a"Elixir.ArithmeticError", _) => println!("Elixir ArithmeticError"),
-        Error(reason) => println!("other error: {:?}", reason),
-        // `trace` can be used to bind the throwable's stacktrace to a variable
-        Throw(value) trace st => println!("thrown: {:?} from {:?}", value, st),
-        Exit(reason) => println!("exit: {:?}", reason),
+        Panic(message) =>
+            println!("panic! {}", message),
+
+        ArgumentError(message) =>
+            println("badarg! {}", message),
+
+        ElixirError(a"Elixir.ArithmeticError") =>
+            println!("Elixir ArithmeticError"),
+
+        // reason is a #{atom => term} map
+        ElixirError(a"Elixir.ArgumentError", reason) =>
+            println!("Elixir ArgumentError {:?}", reason),
+
+        Error(reason) =>
+            println!("other error: {:?}", reason),
+
+        // the 2nd tuple element (3rd for ElixirError) holds a stacktrace
+        Error(reason, stacktrace) =>
+            println!("other error: {:?} from {:?}", reason, stacktrace),
+
+        Throw(value) =>
+            println!("thrown: {:?} from {:?}", value, st),
+
+        Exit(reason) =>
+            println!("exit: {:?}", reason),
+
         _ => a"unknown",
     } after {
         println!("cleaning up");
@@ -45,12 +64,17 @@ A `catch` arm can destructure the following throwables:
 - `Panic(str)` - Panics are Patina's take on exceptions. A Panic *can* be ignored (through catch),
   but it's only supposed to be used for unrecoverable errors, to be logged and fixed
   by the programmer;
+
 - `ArgumentError(str)` - due to their ubiquity in the wider ecosystem, both Erlang's `badarg`
   and Elixir's `ArgumentError` get converted to a separate catchable class
+
 - `ElixirError(atom, #{atom => term})`
+
 - `Error(term)` - Error class also includes panics, badargs and Elixir exceptions - match them first
   if you need to handle them in a special way
+
 - `Throw(term)`
+
 - `Exit(term)` - BEAM Process exit signal that propagates over process links
 
 ### See also:

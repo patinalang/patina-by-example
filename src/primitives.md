@@ -85,6 +85,7 @@ fn add_floats(a: float, b: float) -> float {
 * `char` values are represented by single integers
 <!-- Patina TODO * `byte` values are represented by single integers in the 0-255 range -->
 * `bool` values are represented as atoms `a"true"` and `a"false"`
+
 * all of the other primitive types are directly represented in BEAM
 
 ### See also:
