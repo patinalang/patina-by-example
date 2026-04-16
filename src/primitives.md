@@ -17,6 +17,7 @@ primitive types][BEAM data types]. A sample includes:
 * `str` UTF-8 encoded string; a subtype of `bin`
 * `fnref()` Stateless function reference, similar to Elixir's `&Foo.bar/1`
 * `fn()` Callable function, may be a stateless reference or a closure
+* `pid`, `port` and `ref` native BEAM types that have no literals
 * The unit type `()`, whose only possible value is an empty tuple: `()`
 
 Despite the value of a unit type being a tuple, it is not considered a compound
