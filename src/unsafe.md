@@ -25,8 +25,9 @@ pub fn main() {
 
     unsafe {
         // Celcius(10) and Fahrenheit(10) have the same runtime representation,
-        // so `try_cast_into` will succeed -- but `degrees_term` wasn't Fahrenheit!
-        // Even with some guardrails, this circumvents the type system - so it's unsafe.
+        // so `try_cast_into` will succeed.
+        // But `degrees_term` wasn't Fahrenheit! Even with some guardrails,
+        // this circumvents the type system - which is why it's unsafe.
         let fahrenheit = degrees_term.try_cast_into::<Fahrenheit>().unwrap();
     }
 }
@@ -37,7 +38,7 @@ pub fn main() {
 This is different syntax, but is unsafe for the same reason as `try_cast_into` above.
 
 In safe code, `match` and `receive` can only destructure `term`s into BEAM-native types.
-When wrapped in `unsafe`, both of these blocks can try to destructure into Patina by their
+When wrapped in `unsafe`, both of these blocks can try to destructure into Patina types by their
 runtime representation, similarly to `try_cast_into`:
 
 ```rust,ignore,editable
