@@ -3,7 +3,7 @@
 An attribute is metadata applied to some module or item. This metadata
 can be used to/for:
 
-* set BEAM runtime representation for [structs][structs repr] and [enums][enums repr]
+* [set BEAM runtime representation for structs and enums][repr]
 * [set BEAM module name for Patina modules][mod visibility]
 * [set BEAM module names for Patina structs and enums][struct visibility]
 * [attribute like macros][macros]
@@ -60,8 +60,7 @@ Attributes can have multiple values and can be separated over multiple lines, to
             value4, value5)]
 ```
 
-[structs repr]: custom_types/structs/repr.md
-[enums repr]: custom_types/enum/repr.md
+[repr]: custom_types/repr.md
 [mod visibility]: mod/visibility.md
 [struct visibility]: mod/struct_visibility.md
 [macros]: macros.md

@@ -18,6 +18,7 @@ primitive types][BEAM data types]. A sample includes:
 * `fnref()` Stateless function reference, similar to Elixir's `&Foo.bar/1`
 * `fn()` Callable function, may be a stateless reference or a closure
 * `pid`, `port` and `ref` native BEAM types that have no literals
+* `record` The BEAM [Native Record][native record] type
 * The unit type `()`, whose only possible value is an empty tuple: `()`
 
 Despite the value of a unit type being a tuple, it is not considered a compound
@@ -98,3 +99,4 @@ fn add_floats(a: float, b: float) -> float {
 [shadowing]: variable_bindings/scope.md
 [BEAM data types]: https://www.erlang.org/doc/system/data_types.html
 [bitstring]: https://www.erlang.org/doc/system/data_types.html#bit-strings-and-binaries
+[native record]: https://github.com/erlang/eep/blob/master/eeps/eep-0079.md

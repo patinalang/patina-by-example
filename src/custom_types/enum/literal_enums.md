@@ -52,4 +52,4 @@ pub fn main() {
 }
 ```
 
-[repr]: repr.md
+[repr]: ../repr.md

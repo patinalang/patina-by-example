@@ -19,12 +19,11 @@
 
 - [Custom Types](custom_types.md)
     - [Structures](custom_types/structs.md)
-        - [Runtime representation](custom_types/structs/repr.md)
     - [Enums](custom_types/enum.md)
         - [use](custom_types/enum/enum_use.md)
         - [Literal enums](custom_types/enum/literal_enums.md)
-        - [Runtime representation](custom_types/enum/repr.md)
     - [Constants](custom_types/constants.md)
+    - [Runtime representation](custom_types/repr.md)
 
 - [Variable Bindings](variable_bindings.md)
     - [Mutability](variable_bindings/mut.md)
