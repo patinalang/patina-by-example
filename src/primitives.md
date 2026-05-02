@@ -63,7 +63,7 @@ pub fn main() {
     let my_tuple = (5, true, -5.04);
 
     // Map's signature consists of Key type K and Value type V as #{K => V}
-    let my_map: #{float => str} = #{3.14 => "pi", 0 => "zero"}
+    let my_map: #{float => str} = #{3.14 => "pi", 0 => "zero"};
 
     /* Function types */
 

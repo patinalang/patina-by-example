@@ -161,7 +161,7 @@ By default, single-element structs are represented in runtime as the element its
 ```rust,ignore,editable
 // Omitting repr is equivalent to `#[repr(Patina)]`.
 // In a special case of a single-element struct, it's also equivalent to `#[repr(transparent)]`.
-struct Celcius(degrees: float);
+struct Celcius(float);
 
 pub fn main() {
     println!("{:?}", Celcius(2.345) as term);
@@ -246,7 +246,7 @@ via `#[repr(transparent, fallback = native_record)]`.
 #[repr(native_record)]
 enum NativeRecordEnum {
     Point(int, int),
-    Rectangle(upper_left: Point, lower_right: Point),
+    Rectangle{ upper_left: Point, lower_right: Point },
 
     #[repr(name = "custom_name")]
     WithCustomName(float),
@@ -255,19 +255,19 @@ enum NativeRecordEnum {
 // For structs (not enums!) you can reference an existing, external native record.
 // The record's existence and fields will be checked on module load.
 #[repr(native_record, module = "external_module", name = "custom_name")]
-enum NativeRecordStruct{
+struct NativeRecordStruct{
     foo: str,
 }
 
 extern mod records;
 
 pub fn main() {
-    let point = Point(1, 2);
+    let point = NativeRecordEnum::Point(1, 2);
     // The field names of a tuple-structs and -variants are atomized integers.
     println!("{:?}", records::get_field_names(point));
     // [a"0", a"1"]
 
-    let rect = NativeRecordStruct(upper_left: point, lower_right: point);
+    let rect = NativeRecordStruct{ foo: "bar" };
     println!("{:?}", records::get_field_names(rect));
     // [a"foo"]
 }

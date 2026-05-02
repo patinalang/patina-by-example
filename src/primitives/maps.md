@@ -21,10 +21,10 @@ fn call(number: str) -> str {
 
 pub fn main() {
     let mut contacts = #{
-        contacts.insert("Daniel", "798-1364"),
-        contacts.insert("Ashley", "645-7689"),
-        contacts.insert("Katie", "435-8291"),
-        contacts.insert("Robert", "956-1745"),
+        "Daniel" => "798-1364",
+        "Ashley" => "645-7689",
+        "Katie" => "435-8291",
+        "Robert" => "956-1745",
     };
 
     // Returns Option<str>

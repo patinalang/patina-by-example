@@ -9,27 +9,29 @@ functions, out of the box there are three things you can do with a `term` value:
 
 * `match` it as a basic Erlang type
   (`int`, `float`, `bits`, `atom`, list, map, tuple, `pid`, `port`, `ref`, `fn`)
-* use `unsafe_match` or `term::try_cast_into::<T>()` to coerce it into a Patina type based
+* use `unsafe { match }` or `term::try_cast_into::<T>()` to coerce it into a Patina type based
   on runtime representation,
 * use `unchecked_cast_into` to assert - without checking - that it's a specific Patina type.
 
-### `unsafe_match`
+### `unsafe { match }`
 
-The `unsafe_match` is unsafe because Patina types and their runtime representations are not
+The `unsafe { match }` is unsafe because Patina types and their runtime representations are not
 bijective. Consider this snippet:
 
 ```rust,ignore
 let v = a"nil" as term;
 
-unsafe_match v {
-    Option::<str>::None(v) => "no integer"
-    Option::<int>::None(v) => "no string"
-    _ => "invalid value"
+unsafe {
+    match v {
+        Option::<str>::None(v) => "no integer"
+        Option::<int>::None(v) => "no string"
+        _ => "invalid value"
+    }
 }
 ```
 
 Was `v` intended to be an `Option<str>`, `Option<int>`, an `atom`, or something else entirely?
-`unsafe_match` cannot answer that, as it only matches the runtime representation, which can
+`unsafe { match }` cannot answer that, as it only matches the runtime representation, which can
 be shared by different types.
 
 <!-- # PATINA TODO: term as an enum instead of a built-in? Free matching! but `as term` becomes weird?

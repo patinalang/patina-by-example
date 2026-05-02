@@ -53,11 +53,13 @@ pub fn main() {
         // ^ERROR - can't safely match by runtime representation!
     };
 
-    let unsafe_description = unsafe match v {
-        Option::<str>::None => "an empty string option",
-        Option::<int>::None => "an empty integer option",
-        a"nil" => "the atom nil",
-        _ => "something else",
+    let unsafe_description = unsafe {
+        match v {
+            Option::<str>::None => "an empty string option",
+            Option::<int>::None => "an empty integer option",
+            a"nil" => "the atom nil",
+            _ => "something else",
+        }
     };
 
     println!("{}, {}", safe_description, unsafe_description);
@@ -68,7 +70,7 @@ pub fn main() {
 
 ## See also:
 
-[term][term], [unsafe match][unsafe match], [unsafe receive][unsafe receive]
+[term][term], [unsafe { match }][unsafe match], [unsafe { receive }][unsafe receive]
 
 [Rust unsafe]: https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html
 [term]: primitives/term.md

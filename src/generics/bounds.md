@@ -18,9 +18,11 @@ Bounding restricts the generic to types that conform to the bounds. That is:
 ```rust,ignore
 struct S<T: Display>(T);
 
-// Error! `(T)` does not implement `Display`. This
-// specialization will fail.
-let s = S((1));
+pub fn main() {
+    // Error! `(T)` does not implement `Display`. This
+    // specialization will fail.
+    let s = S((1));
+}
 ```
 
 Another effect of bounding is that generic instances are allowed to access the
