@@ -8,8 +8,8 @@ Only [Erlang guard expressions][guard expressions] are allowed in the `if` guard
 ```rust,ignore,editable
 #[allow(dead_code)]
 enum Temperature {
-    Celsius(i32),
-    Fahrenheit(i32),
+    Celsius(int),
+    Fahrenheit(int),
 }
 
 pub fn main() {
@@ -32,7 +32,7 @@ if all patterns are covered by the match expression.
 
 ```rust,editable,ignore
 pub fn main() {
-    let number: u8 = 4;
+    let number: int = 4;
 
     match number {
         i if i == 0 => println!("Zero"),

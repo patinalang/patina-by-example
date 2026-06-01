@@ -25,11 +25,11 @@ use Std::Convert::From;
 
 #[derive(Debug)]
 struct Number {
-    value: i32,
+    value: int,
 }
 
-impl From<i32> for Number {
-    fn from(item: i32) -> Self {
+impl From<int> for Number {
+    fn from(item: int) -> Self {
         Number { value: item }
     }
 }
@@ -52,19 +52,19 @@ use Std::Convert::Into;
 
 #[derive(Debug)]
 struct Number {
-    value: i32,
+    value: int,
 }
 
-impl Into<Number> for i32 {
+impl Into<Number> for int {
     fn into(self) -> Number {
         Number { value: self }
     }
 }
 
 pub fn main() {
-    let int = 5;
+    let integer = 5;
     // Try removing the type annotation
-    let num: Number = int.into();
+    let num: Number = integer.into();
     println!("My number is {:?}", num);
 }
 ```
@@ -81,20 +81,20 @@ use Std::Convert::From;
 
 #[derive(Debug)]
 struct Number {
-    value: i32,
+    value: int,
 }
 
 // Define `From`
-impl From<i32> for Number {
-    fn from(item: i32) -> Self {
+impl From<int> for Number {
+    fn from(item: int) -> Self {
         Number { value: item }
     }
 }
 
 pub fn main() {
-    let int = 5;
+    let integer = 5;
     // use `Into`
-    let num: Number = int.into();
+    let num: Number = integer.into();
     println!("My number is {:?}", num);
 }
 ```

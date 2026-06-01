@@ -42,7 +42,7 @@ Uncomment the last print statement to observe that the type supplied must be `Ye
 To obtain the `newtype`'s value as the base type, you may use the tuple or destructuring syntax like so:
 
 ```rust,ignore, editable
-struct Years(i64);
+struct Years(int);
 
 pub fn main() {
     let years = Years(42);

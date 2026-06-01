@@ -62,7 +62,7 @@ In the same way, `if let` can be used to match any enum value:
 enum Foo {
     Bar,
     Baz,
-    Qux(u32)
+    Qux(int)
 }
 
 pub fn main() {

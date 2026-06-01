@@ -51,7 +51,7 @@ pub fn main() {
 
     // `SingleGen` can also have a type parameter implicitly specified:
     let _t    = SingleGen(A); // Uses `A` defined at the top.
-    let _i32  = SingleGen(6); // Uses `int`.
+    let _int  = SingleGen(6); // Uses `int`.
     let _char = SingleGen('a'); // Uses `char`.
 }
 ```
