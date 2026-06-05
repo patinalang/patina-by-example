@@ -31,7 +31,7 @@ enum NotJustUnits {
     VariantA,
     #[repr(name = "variantB")]
     VariantB,
-    VariantC(int)
+    VariantC(int),
 }
 
 // Explicitly setting `#[repr(atom)]` will ensure that only unit variants
@@ -109,23 +109,23 @@ pub fn main() {
     // a"Elixir.Patina.ByExample.TaggedEnum.Unit"
 
     // Both tuple- and struct-style variants are represented as tagged tuples.
-    println!("{:?}", TaggedEnum::TupleStyle("hello") as term)
+    println!("{:?}", TaggedEnum::TupleStyle("hello") as term);
     // (a"Elixir.Patina.ByExample.TaggedEnum.TupleStyle", "hello")
 
-    println!("{:?}", TaggedEnum::StructStyle{x: 1, y: 2} as term)
+    println!("{:?}", TaggedEnum::StructStyle{x: 1, y: 2} as term);
     // (a"Elixir.Patina.ByExample.TaggedEnum.StructStyle", 1, 2)
 
     // Unit elements are omitted in the runtime representation. If all elements
     // of the variant are unit type, the variant is represented directly
     // as an atom.
-    println!("{:?}", TaggedEnum::WithUnitElem((), 42) as term)
+    println!("{:?}", TaggedEnum::WithUnitElem((), 42) as term);
     // (a"Elixir.Patina.ByExample.TaggedEnum.WithUnitElem", 42)
 
-    println!("{:?}", TaggedEnum::WithOneUnitElem(()) as term)
+    println!("{:?}", TaggedEnum::WithOneUnitElem(()) as term);
     // a"Elixir.Patina.ByExample.TaggedEnum.WithOneUnitElem"
 
     // You can set a custom tag by specifying it with `#[repr(name = "...")]`.
-    println!("{:?}", TaggedEnum::WithCustomTag(42) as term)
+    println!("{:?}", TaggedEnum::WithCustomTag(42) as term);
     // (a"my_tag", 42)
 }
 ```
@@ -140,14 +140,14 @@ of the variant names.
 #[repr(tagged, style = snake_case)]
 enum SnakeCaseEnum {
     UnitVariant,
-    StructHTTPStyle{code: int, body: str}
+    StructHTTPStyle{code: int, body: str},
 }
 
 pub fn main() {
-    println!("{:?}", SnakeCaseEnum::UnitVariant as term)
+    println!("{:?}", SnakeCaseEnum::UnitVariant as term);
     // a"unit_variant"
 
-    println!("{:?}", SnakeCaseEnum::StructHTTPStyle{code: 200, body: "hi"} as term)
+    println!("{:?}", SnakeCaseEnum::StructHTTPStyle{code: 200, body: "hi"} as term);
     // (a"struct_http_style", 200, "hi")
 }
 ```
@@ -186,7 +186,7 @@ struct Point {
 enum TransparentEnum {
     Unit,
     TupleStyle(int, str),
-    StructStyle{point: Point}
+    StructStyle{point: Point},
 }
 
 // Compiling this enum will result in an error, as the variants
@@ -202,13 +202,13 @@ enum InvalidTransparentEnum {
 }
 
 pub fn main() {
-    println!("{:?}", TransparentEnum::Unit as term)
+    println!("{:?}", TransparentEnum::Unit as term);
     // a"Elixir.Patina.ByExample.TransparentEnum.Unit"
 
-    println!("{:?}", TransparentEnum::TupleStyle(200, "hello") as term)
+    println!("{:?}", TransparentEnum::TupleStyle(200, "hello") as term);
     // (200, "hello")
 
-    println!("{:?}", TransparentEnum::StructStyle{point: Point{x: 1, y: 2}} as term)
+    println!("{:?}", TransparentEnum::StructStyle{point: Point{x: 1, y: 2}} as term);
     // #{ a"__struct__" => a"Elixir.Patina.ByExample.Point", a"x" => 1, a"y" => 2 }
 }
 ```
@@ -308,22 +308,22 @@ pub enum Result<T, E> {
     Ok(T),
 
     #[repr(name = "error")]
-    Err(E)
+    Err(E),
 }
 
 pub fn main() {
     println!("{:?}    {:?}",
-        Result::<int, str>::Ok(42), Result::<int, str>::Err("reason"))
+        Result::<int, str>::Ok(42), Result::<int, str>::Err("reason"));
     // (a"ok", 42)    (a"error", "reason")
 
     // The unit elision rule lets us directly represent `:ok | {:error, reason}`
     println!("{:?}    {:?}",
-        Result::<(), str>::Ok(()), Result::<(), str>::Err("reason"))
+        Result::<(), str>::Ok(()), Result::<(), str>::Err("reason"));
     // a"ok"    (a"error", "reason")
 
     // Elixir's `Map.fetch` result `{:ok, val} | :error` can also be represented
     println!("{:?}    {:?}",
-        Result::<int, ()>::Ok(42), Result<int, ()>::Err(()))
+        Result::<int, ()>::Ok(42), Result<int, ()>::Err(()));
     // (a"ok", 42)    a"error"
 }
 ```
@@ -340,24 +340,24 @@ pub enum Option<T> {
     Some(T),
 
     #[repr(name = "nil")]
-    None
+    None,
 }
 
 pub fn main() {
     println!("{:?}    {:?}",
-        Option::<int>::Some(42), Option::<int>::None)
+        Option::<int>::Some(42), Option::<int>::None);
     // 42    a"nil"
 
     // `Option<atom>` cannot be transparent, as `a"nil"` is a valid `Some`
     println!("{:?}    {:?}",
-        Option::<atom>::Some(a"hi"), Option::<atom>::None)
+        Option::<atom>::Some(a"hi"), Option::<atom>::None);
     // (a"some", a"hi")    a"nil"
 
     // Option<Option<int>> also cannot be transparently represented
     println!("{:?}    {:?}    {:?}",
         Option::<Option<int>>::Some(Some(42)),
         Option::<Option<int>>::Some(None),
-        Option::<Option<int>>::None)
+        Option::<Option<int>>::None);
     // (a"some", 42)    (a"some", a"nil")    a"nil"
 }
 ```
@@ -379,11 +379,11 @@ pub enum TermToBinaryOpts {
 }
 
 pub fn main() {
-    let opts: [TermToBinaryOpts] = [Deterministic, MinorVersion(2)]
-    println!("{:?}", opts as term)
+    let opts: [TermToBinaryOpts] = [Deterministic, MinorVersion(2)];
+    println!("{:?}", opts as term);
     // [a"deterministic", (a"minor_version", 2)]
 
-    println!("{:?}", erlang::term_to_binary(val, opts))
+    println!("{:?}", erlang::term_to_binary(val, opts));
     // <<131, 97, 42>>
 }
 ```
