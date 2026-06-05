@@ -65,12 +65,12 @@ pub fn main() {
     let fx = || {
         println!("fx evaluated!");
         3
-    }
+    };
 
     let fy = || {
         println!("fy evaluated!");
         5
-    }
+    };
 
     // won't print anything
     let lazy_result = lazy_add(fx, fy);
