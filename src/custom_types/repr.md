@@ -26,7 +26,7 @@ struct Unit;
 struct CustomNameUnit;
 
 // `style` can be used to change the style of atom tags assigned by Patina
-#[repr(style = snake_case)]
+#[repr(style = "snake_case")]
 enum NotJustUnits {
     VariantA,
     #[repr(name = "variantB")]
@@ -36,7 +36,7 @@ enum NotJustUnits {
 
 // Explicitly setting `#[repr(atom)]` will ensure that only unit variants
 // are ever added to an enum.
-#[repr(atom, style = snake_case)]
+#[repr(atom, style = "snake_case")]
 enum OnlyUnits {
     VariantA,
     VariantB,
@@ -137,7 +137,7 @@ setting that can be set to `snake_case`. When set, the atom tags are the snake c
 of the variant names.
 
 ```rust,ignore,editable
-#[repr(tagged, style = snake_case)]
+#[repr(tagged, style = "snake_case")]
 enum SnakeCaseEnum {
     UnitVariant,
     StructHTTPStyle{code: int, body: str},
@@ -219,7 +219,7 @@ pub fn main() {
 // repr(transparent) can also be given a fallback, if the type cannot
 // be transparently represented. This is important for generic types,
 // as runtime representation will differ between concrete `T`s.
-#[repr(transparent, fallback = tagged)]
+#[repr(transparent, fallback = "tagged")]
 enum TransparentWithTags<T> {
     Untagged(str),
 
@@ -236,7 +236,7 @@ enum TransparentWithTags<T> {
 ```
 
 Native records (shown below) can also be used as a fallback
-via `#[repr(transparent, fallback = native_record)]`.
+via `#[repr(transparent, fallback = "native_record")]`.
 
 ## Native Records
 
@@ -330,11 +330,11 @@ pub fn main() {
 
 ### Case study: `Option`
 
-With `#[repr(transparent, fallback = tagged)]`, Patina's `Option` can cleanly represent most
+With `#[repr(transparent, fallback = "tagged")]`, Patina's `Option` can cleanly represent most
 of the common `t() | nil` combinations:
 
 ```rust,ignore,editable
-#[repr(transparent, fallback = tagged)]
+#[repr(transparent, fallback = "tagged")]
 pub enum Option<T> {
     #[repr(name = "some")]
     Some(T),
@@ -370,7 +370,7 @@ for `erlang:term_to_binary` like this:
 ```rust,ignore,editable
 extern mod erlang;
 
-#[repr(tagged, style = snake_case)]
+#[repr(tagged, style = "snake_case")]
 pub enum TermToBinaryOpts {
     Compressed(int),
     Deterministic,
