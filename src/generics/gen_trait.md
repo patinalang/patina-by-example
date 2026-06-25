@@ -20,7 +20,7 @@ trait SeededHash<T> {
 // caller `U`.
 impl<T, U> SeededHash<T> for U {
     fn seeded_hash(self, seed: T) -> int {
-        erlang.phash2((seed, self)).unsafe_cast::<int>()
+        erlang::phash2((seed, self)).unsafe_cast::<int>()
     }
 }
 

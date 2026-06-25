@@ -70,6 +70,7 @@
     - [Closures](fn/closures.md)
     - [As parameters](fn/parameters.md)
     - [Diverging functions](fn/diverging.md)
+    - [Extern calls](fn/extern_calls.md)
 
 - [Modules](mod.md)
     - [Visibility](mod/visibility.md)
