@@ -8,11 +8,11 @@ to the latter.
 
 ```rust,ignore,editable
 fn call_me_ref(f: fnref(int) -> int) {
-    f();
+    f(1);
 }
 
 fn call_me(f: fn(int) -> int) {
-    f();
+    f(2);
 }
 
 fn function(x: int) -> int {
@@ -38,7 +38,7 @@ functions.
 
 ```rust,ignore,editable
 fn lazy_add(fx: fn() -> int, fy: fn() -> int) -> fn() -> int {
-    || fx() + fy();
+    || fx() + fy()
 }
 
 fn add(x: int, y: int) -> int {
