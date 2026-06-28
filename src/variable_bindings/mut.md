@@ -31,7 +31,7 @@ pub fn main() {
         // You must define a new variable to modify it inside your closure
         let mut inner_mutable_binding = mutable_binding;
         inner_mutable_binding += 1;
-        println("{} == {} + 1", inner_mutable_binding, mutable_binding);
+        println!("{} == {} + 1", inner_mutable_binding, mutable_binding);
     };
 }
 ```
