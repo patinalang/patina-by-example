@@ -41,7 +41,7 @@ pub fn main() {
 
     // A type can also be inferred from context.
     let inferred_type = 12; // Type float is inferred from another line.
-    inferred_type = add_floats(inferred_type, 3.14)
+    inferred_type = add_floats(inferred_type, 3.14);
 
     // A mutable variable's value can be changed - rebound to a new value.
     let mut mutable = 12; // Mutable `int`
