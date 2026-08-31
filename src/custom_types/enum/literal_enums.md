@@ -25,13 +25,13 @@ enum StrEnum {
 
 pub fn main() {
     // literal enums can be safely cast to their underlying type
-    println!("{:?}", AtomEnum::Foo as atom)
+    println!("{:?}", AtomEnum::Foo as atom);
     // a"hello_foo"
 
-    println!("{:?}", IntEnum::NotFound as int)
+    println!("{:?}", IntEnum::NotFound as int);
     // 404
 
-    println!("{:?}", StrEnum::Peter as str)
+    println!("{:?}", StrEnum::Peter as str);
     // "Peter"
 }
 ```
@@ -47,7 +47,7 @@ enum AllUnits {
 }
 
 pub fn main() {
-    println!("{:?}", AllUnits::Foo as atom)
+    println!("{:?}", AllUnits::Foo as atom);
     // a"Elixir.Patina.ByExample.AllUnits.Foo"
 }
 ```

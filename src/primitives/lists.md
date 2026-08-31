@@ -13,7 +13,7 @@ provide a bracket access operator (ex. `lst[0]`).
 
 ```rust,editable,ignore
 pub fn main() {
-    // Fixed-size array (type signature is superfluous).
+    // List (type signature is superfluous).
     let xs: [int] = [1, 2, 3, 4, 5];
 
     // Indexing starts at 0.
@@ -39,8 +39,8 @@ pub fn main() {
     // and `more_xs` are internally the same VM object.
     println!("more_xs tail is equal to xs: {}", more_xs.tail == xs);
 
-    // Lists can also be destructured using the same syntax
-    let [first, second, third, ..rest] = more_xs;
+    // Lists can also be destructured using a similar syntax
+    let [first, second, third, rest @ ..] = more_xs else { return };
     println!("Sum of first three elements is {}", first + second + third);
     println!("...and the rest: {:?}", rest);
 }

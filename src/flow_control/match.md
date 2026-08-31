@@ -37,8 +37,8 @@ pub fn main() {
     let expected_value = 42;
     match 123 {
         // You can use the pin operator (^) to match against bound variables
-        ^expected_value => println!("found expected value")
-        value => println!("found unexpected value {}", value)
+        ^expected_value => println!("found expected value"),
+        value => println!("found unexpected value {}", value),
     }
 }
 ```

@@ -32,6 +32,9 @@ pub fn main() {
             "list[0] = 3, list[1] = {} and the other elements were {:?}",
             second, tail
         ),
+
+        // We have to include a catch-all for match exhaustiveness.
+        _ => println!("no list pattern matched"),
     }
 }
 ```

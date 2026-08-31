@@ -38,17 +38,18 @@ pub fn main() {
     // Variables can be type annotated.
     let logical: bool  = true;
     let a_float: float = 1.0;
+    let an_atom: atom = a"hello";
 
     // A type can also be inferred from context.
-    let inferred_type = 12; // Type float is inferred from another line.
-    inferred_type = add_floats(inferred_type, 3.14);
+    let inferred_type; // Type float is inferred from another line.
+    inferred_type = add_floats(12.0, 3.14);
 
     // A mutable variable's value can be changed - rebound to a new value.
     let mut mutable = 12; // Mutable `int`
     mutable = 21;
 
     // Error! The type of a variable can't be changed.
-    mutable = true;
+    // mutable = true;
 
     // Variables can be overwritten with shadowing.
     let mutable = true;
@@ -63,11 +64,11 @@ pub fn main() {
     let my_tuple = (5, true, -5.04);
 
     // Map's signature consists of Key type K and Value type V as #{K => V}
-    let my_map: #{float => str} = #{3.14 => "pi", 0 => "zero"};
+    let my_map: #{float => str} = #{3.14 => "pi", 0.0 => "zero"};
 
     /* Function types */
 
-    let add_ref: fnref(float, float) -> float = add_float;
+    let add_ref: fnref(float, float) -> float = add_floats;
     // fnref is implicitly convertible to fn
     let add_fn: fn(float, float) -> float = add_ref;
 }

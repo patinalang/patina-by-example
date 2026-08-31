@@ -26,7 +26,8 @@ pub fn main() {
     self::public_function();
 
     // Remote call: `'Elixir.Patina.MyPkg':public_function()`
-    #[extern_call] public_function();
+    #[extern_call]
+    public_function();
 
     // Always a local call: `priv_function` is not exported!
     // Prepending `#[extern_call]` would result in a compilation error.

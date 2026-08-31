@@ -13,7 +13,7 @@ on types' runtime representation instead of source-level identity.
 pub fn main() {
     let v = Option::<int>::None as term;
 
-    let safe_destription = match v {
+    let safe_description = match v {
         a"nil" => "the atom nil",
         (a"some", val) => "some value (tagged?)",
         int(_) => "some integer value (untagged?)",

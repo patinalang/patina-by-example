@@ -45,7 +45,7 @@ runtime representation, similarly to `try_cast_into`:
 pub fn main() {
     let v = Option::<int>::None as term;
 
-    let safe_destription = match v {
+    let safe_description = match v {
         a"nil" => "the atom nil",
         (a"some", val) => "some value (tagged?)",
         val => "some value (untagged?)",

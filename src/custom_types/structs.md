@@ -67,7 +67,7 @@ pub fn main() {
     let _rectangle = Rectangle {
         // struct instantiation is an expression too
         top_left: Point { x: left_edge, y: top_edge },
-        bottom_right: bottom_right,
+        bottom_right,
     };
 
     // Instantiate a unit struct
