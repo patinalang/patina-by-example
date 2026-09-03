@@ -30,9 +30,9 @@ mod MyMod {
 
 ### Tag
 
-All structs and variants have a *tag*, which may or may not be a part of its runtime representation.
-By default, the tag is equal to the `module` (as above). It can be set manually
-through `#[repr(tag="mytag")]`.
+Some structs and variant representations use *tag*. By default, the tag is equal to the `module`
+(as above) for `atom` and `tagged` reprs, and to the short variant name for `native_struct`. It can
+be set manually through `#[repr(tag="mytag")]`.
 
 ```rust,ignore,editable
 mod MyMod {
