@@ -3,8 +3,8 @@
 There are three types of structures ("structs") that can be created using the
 `struct` keyword:
 
-* Most commonly, [Elixir-style structs][Elixir structs], which are based on maps.
-* Tuple structs, which are, basically, [Erlang's records][records].
+* Most commonly, structs with named fields.
+* Tuple structs, whose fields are unnamed and accessed by position.
 * Unit structs, which are field-less, are useful for generics.
 
 ```rust,ignore,editable
@@ -88,9 +88,8 @@ pub fn main() {
 
 ### See also
 
-[`attributes`][attributes], [destructuring][destructuring]
+[`attributes`][attributes], [destructuring][destructuring],
+[runtime representation][repr]
 
 [attributes]: ../attribute.md
 [destructuring]: ../flow_control/match/destructuring.md
-[records]: https://www.erlang.org/doc/system/ref_man_records.html
-[Elixir structs]: https://hexdocs.pm/elixir/structs.html

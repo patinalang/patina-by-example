@@ -16,7 +16,7 @@ enum WebEvent {
     // like tuple structs,
     KeyPress(char),
     Paste(str),
-    // or map structures.
+    // or structs with named fields.
     Click { x: int, y: int },
 }
 
@@ -94,7 +94,7 @@ impl VeryVerboseEnumOfThingsToDoWithNumbers {
 
 ### See also:
 
-[`match`][match], [`fn`][fn]
+[`match`][match], [`fn`][fn], [runtime representation][repr]
 
 [match]: ../flow_control/match.md
 [fn]: ../fn.md
