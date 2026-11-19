@@ -8,10 +8,9 @@ While individual types can define `From<term>` or `TryFrom<term>` traits, or pro
 functions, out of the box there are three things you can do with a `term` value:
 
 * `match` it as a basic Erlang type
-  (`int`, `float`, `bits`, `atom`, list, map, tuple, `pid`, `port`, `ref`, `fn`)
-* use `unsafe { match }` or `term::try_cast_into::<T>()` to coerce it into a Patina type based
-  on runtime representation,
-* use `unchecked_cast_into` to assert - without checking - that it's a specific Patina type.
+  (`int`, `float`, `bits`, `atom`, list, map, tuple, `pid`, `port`, `ref`, `fn`),
+* use `unsafe { match }` to match it against Patina types based on their runtime representation,
+* use `unsafe` `cast_unchecked` to assert - without checking - that it's a specific Patina type.
 
 ### `unsafe { match }`
 
@@ -34,10 +33,26 @@ Was `v` intended to be an `Option<str>`, `Option<int>`, an `atom`, or something 
 `unsafe { match }` cannot answer that, as it only matches the runtime representation, which can
 be shared by different types.
 
-<!-- # PATINA TODO: term as an enum instead of a built-in? Free matching! but `as term` becomes weird?
-# Maybe not? Maybe we don't need `as term`, and the only thing we need is an `unchecked_cast_into`?
-# How about `unsafe_marshal_from` and `unsafe_marshal_into`. This is a weird spot between a built-in
-# and a higher-order type... If I have matching + unchecked_cast_into, why do I need try_cast_into and unsafe_to_term????
+### `cast_unchecked`
+
+When you know the real type of a `term` in a given situation (for example,
+`unicode:characters_to_binary/1` always returns a valid `str`), `cast_unchecked` lets you inform
+Patina of the type without adding a runtime check.
+
+```rust,ignore,editable
+extern mod erlang;
+
+pub fn main() {
+    // External functions return a `term`, but `erlang:length/1` always returns an integer.
+    let len = unsafe { erlang::length([1, 2, 3]).cast_unchecked::<int>() };
+
+    println!("{}", len * 2);
+}
+```
+
+`cast_unchecked` needs an `unsafe` block because, if the `term` isn't really of the asserted type,
+the types in the source can mismatch reality with a cascading effect.
+When you're not sure, `match` the `term` instead.
 
 ```rust,ignore
 use Elixir::ExApp::Events;

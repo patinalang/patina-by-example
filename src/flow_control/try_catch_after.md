@@ -22,35 +22,23 @@ fn open_resource() -> atom {
 
 pub fn main() {
     try {
-        open_resource()
+        open_resource();
     } catch {
-        Panic(message) =>
-            println!("panic! {}", message),
+        error(a"badarg") =>
+            println!("badarg!"),
 
-        ArgumentError(message) =>
-            println("badarg! {}", message),
+        error(reason @ #{a"__struct__" => a"Elixir.MyElixirException", ..}) =>
+            println!("An Elixir exception {:?}", reason),
 
-        ElixirError(a"Elixir.ArithmeticError") =>
-            println!("Elixir ArithmeticError"),
-
-        // reason is a #{atom => term} map
-        ElixirError(a"Elixir.ArgumentError", reason) =>
-            println!("Elixir ArgumentError {:?}", reason),
-
-        Error(reason) =>
-            println!("other error: {:?}", reason),
-
-        // the 2nd tuple element (3rd for ElixirError) holds a stacktrace
-        Error(reason, stacktrace) =>
+        // a second pattern after the comma binds the stacktrace
+        error(reason), stacktrace =>
             println!("other error: {:?} from {:?}", reason, stacktrace),
 
-        Throw(value) =>
-            println!("thrown: {:?} from {:?}", value, st),
+        throw(value) =>
+            println!("thrown: {:?}", value),
 
-        Exit(reason) =>
+        exit(reason) =>
             println!("exit: {:?}", reason),
-
-        _ => a"unknown",
     } after {
         println!("cleaning up");
     };
@@ -61,22 +49,42 @@ pub fn main() {
 
 A `catch` arm can destructure the following throwables:
 
-- `Panic(str)` - Panics are Patina's take on exceptions. A Panic *can* be ignored (through catch),
-  but it's only supposed to be used for unrecoverable errors, to be logged and fixed
-  by the programmer;
+- `error(reason)` / `error(reason), stacktrace` - the BEAM error class. Erlang's `badarg` is
+  `error(a"badarg")`, and an Elixir exception is a struct map with `__exception__` set to `true`,
+  e.g. `error(#{a"__struct__" => a"Elixir.ArgumentError", ..})`;
 
-- `ArgumentError(str)` - due to their ubiquity in the wider ecosystem, both Erlang's `badarg`
-  and Elixir's `ArgumentError` get converted to a separate catchable class
+- `throw(value)` / `throw(value), stacktrace` - thrown values;
 
-- `ElixirError(atom, #{atom => term})`
+- `exit(reason)` / `exit(reason), stacktrace` - BEAM process exit signals that propagate over
+  process links.
 
-- `Error(term)` - Error class also includes panics, badargs and Elixir exceptions - match them first
-  if you need to handle them in a special way
+- `any(class, value)` / `any(class, value), stacktrace` - any BEAM exception class.
+  `class` gets bound to `error`, `throw`, or `exit`.
 
-- `Throw(term)`
+## Matching on the caught value
 
-- `Exit(term)` - BEAM Process exit signal that propagates over process links
+The value caught by each class is a [`term`][term], so it can be destructured
+like in any other [`match`][match] on a `term`:
+
+```rust,ignore,editable
+extern mod erlang;
+
+pub fn main() {
+    let value = try {
+        erlang::error((a"badmatch", 42));
+        0
+    } catch {
+        // Match a `badmatch` tuple with an `int` value.
+        error((a"badmatch", int(n))) => n,
+    };
+
+    println!("{}", value);
+}
+```
 
 ### See also:
 
 [`Result`](../error/result.md), [`panic`](../error/panic.md), and [`flow of control`](../flow_control.md)
+
+[term]: ../primitives/term.md
+[match]: match.md

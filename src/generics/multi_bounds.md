@@ -3,8 +3,6 @@
 Multiple bounds for a single type can be applied with a `+`. Like normal, different types are
 separated with `,`.
 
-<!-- PATINA TODO: once it settles, all examples of `use Std::` and `use Std::` should
-have consistent casing -->
 ```rust,ignore,editable
 use Std::Fmt::{Debug, Display};
 

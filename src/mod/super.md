@@ -8,26 +8,26 @@ fn function() {
     println!("called `function()`");
 }
 
-mod Cool {
+mod cool {
     pub fn function() {
-        println!("called `Cool::function()`");
+        println!("called `cool::function()`");
     }
 }
 
-mod My {
+mod my {
     fn function() {
-        println!("called `My::function()`");
+        println!("called `my::function()`");
     }
 
-    mod Cool {
+    mod cool {
         pub fn function() {
-            println!("called `My::Cool::function()`");
+            println!("called `my::cool::function()`");
         }
     }
 
     pub fn indirect_call() {
         // Let's access all the functions named `function` from this scope!
-        print!("called `My::indirect_call()`, that\n> ");
+        print!("called `my::indirect_call()`, that\n> ");
 
         // The `self` keyword refers to the current module scope - in this case `My`.
         // Calling `self::function()` and calling `function()` directly both give
@@ -36,21 +36,21 @@ mod My {
         function();
 
         // We can also use `self` to access another module inside `My`:
-        self::Cool::function();
+        self::cool::function();
 
         // The `super` keyword refers to the parent scope (outside the `My` module).
         super::function();
 
-        // This will bind to the `Cool::function` in the *pkg* scope.
+        // This will bind to the `cool::function` in the *pkg* scope.
         // In this case the pkg scope is the outermost scope.
         {
-            use pkg::Cool::function as root_function;
+            use pkg::cool::function as root_function;
             root_function();
         }
     }
 }
 
 pub fn main() {
-    My::indirect_call();
+    my::indirect_call();
 }
 ```

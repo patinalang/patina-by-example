@@ -20,7 +20,7 @@ pub fn main() {
     // `.get(n)` can be used to traverse to and return the nth element of the list
     // as an `Option`.
     match xs.get(0) {
-        Some(xval) => println!("elem 0: {}", {}),
+        Some(xval) => println!("elem 0: {}", xval),
         None => println!("the list is empty!"),
     }
 
@@ -30,14 +30,14 @@ pub fn main() {
 
     // The head and tail of a list can be retrieved with `head` and `tail`
     // `head` is an `Option`, and is None for empty lists; `tail` always succeeds.
-    println!("First element of the list: {}", xs.head);
-    println!("Rest of the list: {:?}", xs.tail);
+    println!("First element of the list: {}", xs.head());
+    println!("Rest of the list: {:?}", xs.tail());
 
     // Lists can be prepended in constant time using the following syntax:
     let more_xs = [-1, 0, ..xs];
-    // This creates a new list, but the tail is not duplicated - both `xs`
-    // and `more_xs` are internally the same VM object.
-    println!("more_xs tail is equal to xs: {}", more_xs.tail == xs);
+    // This creates a new list, but the tail is not duplicated - `xs`
+    // and `more_xs.tail().tail()` are internally the same VM object.
+    println!("more_xs.tail().tail() is equal to xs: {}", more_xs.tail().tail() == xs);
 
     // Lists can also be destructured using a similar syntax
     let [first, second, third, rest @ ..] = more_xs else { return };

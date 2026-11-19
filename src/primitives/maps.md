@@ -6,8 +6,6 @@ using `#{k => v, ...}` syntax, with `#{}` being an empty map.
 Map keys can be booleans, integers, strings, or any other type. Every term on BEAM VM
 is hashable, and that hash is used for BEAM maps as well.
 
-<!-- // PATINA TODO: pin down the iteration story. We want Elixir's Enumerable to be supported -->
-
 ```rust,ignore,editable
 fn call(number: str) -> str {
     match number {

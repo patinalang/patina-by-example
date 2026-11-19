@@ -18,7 +18,7 @@ pub fn main() {
         // like in `match`, literals can also be used
         a"ping" => println!("received ping"),
         atom(a) => println!("received atom {:?}", a),
-    } timeout Duration::from_seconds(5) {
+    } after Timeout::from_seconds(5) {
         println!("timeout (5 seconds with no matching message)")
     }
 

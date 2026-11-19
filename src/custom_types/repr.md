@@ -18,7 +18,7 @@ is `Elixir.Patina.{fully-qualified definition path}`, but it can be set manually
 `#[module = "mymod"]` attribute. All enum variants share one module.
 
 ```rust,ignore,editable
-mod MyMod {
+mod my_mod {
     // This struct's module name is `Elixir.Patina.ByExample.MyMod.MyStruct`.
     struct MyStruct;
 
@@ -35,7 +35,7 @@ Some structs and variant representations use *tag*. By default, the tag is equal
 be set manually through `#[repr(tag="mytag")]`.
 
 ```rust,ignore,editable
-mod MyMod {
+mod my_mod {
     #[repr(tagged)]
     struct MyStruct(int, int);
 
@@ -222,7 +222,8 @@ by their runtime shape**, otherwise they will be rejected by the compiler.
 
 Under the default `#[repr(Patina)]`, single-field variants will be transparent by default,
 but they'll silently fall back to `native_record` representation if their shapes are not unique.
-Thus, adding new variants to an enum can change existing variants' representation.
+Thus, adding new variants to an enum can change existing variants' representation!
+To guarantee stable representation, use explicit `#[repr(...)]` attributes.
 
 ```rust,ignore,editable
 #[repr(Elixir)]
@@ -276,7 +277,8 @@ enum TransparentWithTags<T> {
 
     // `MaybeUntagged(T)` values are represented as themselves, except
     // for values that could be mistaken for another variant.
-    #[repr(tag = "othertag")]
+    // This behaviour has to be opted in with `dynamic_wrap` attribute.
+    #[repr(dynamic_wrap, tag = "othertag")]
     MaybeUntagged(T),
 
     // Individual enum variants can have their own representation set.
@@ -407,7 +409,7 @@ of the common `t() | nil` combinations:
 ```rust,ignore,editable
 #[repr(transparent)]
 pub enum Option<T> {
-    #[repr(tag = "some")]
+    #[repr(dynamic_wrap, tag = "some")]
     Some(T),
 
     #[repr(atom, tag = "nil")]
@@ -429,9 +431,9 @@ pub fn main() {
 
     // Nested options stay distinguishable: only the values that would be
     // mistaken for `None` are wrapped.
-    println!("{:?}", Option::<Option<int>>::Some(Some(42)) as term);
+    println!("{:?}", Option::<Option<int>>::Some(Option::Some(42)) as term);
     // 42
-    println!("{:?}", Option::<Option<int>>::Some(None) as term);
+    println!("{:?}", Option::<Option<int>>::Some(Option::None) as term);
     // (a"some", a"nil")
     println!("{:?}", Option::<Option<int>>::None as term);
     // a"nil"

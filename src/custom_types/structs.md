@@ -11,7 +11,6 @@ There are three types of structures ("structs") that can be created using the
 // An attribute to hide warnings for unused code.
 #![allow(dead_code)]
 
-#[derive(Debug)]
 struct Person {
     name: str,
     age: int,
@@ -93,3 +92,4 @@ pub fn main() {
 
 [attributes]: ../attribute.md
 [destructuring]: ../flow_control/match/destructuring.md
+[repr]: repr.md

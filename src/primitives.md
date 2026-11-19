@@ -10,7 +10,6 @@ primitive types][BEAM data types]. A sample includes:
 * `float` Floating point values (64-bit)
 * `char` Unicode scalar values like `'a'`, `'α'` and `'∞'`
 * `bool` either `true` or `false`
-<!-- Patina TODO * `byte` Single byte values in 0-255 range -->
 * `bits` [Bit String][bitstring] - a contiguous store of a number of bits not
   necessarily divisible by 8
 * `bin` Binary; a subtype of `bits` with length divisible by 8
@@ -86,7 +85,6 @@ fn add_floats(a: float, b: float) -> float {
   can't rely on runtime checks to differentiate a `bin` from a `str` or `bits`.
 
 * `char` values are represented by single integers
-<!-- Patina TODO * `byte` values are represented by single integers in the 0-255 range -->
 * `bool` values are represented as atoms `a"true"` and `a"false"`
 
 * all of the other primitive types are directly represented in BEAM

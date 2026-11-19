@@ -16,7 +16,7 @@ pub fn main() {
             Option::<str>::None => println!("got an empty string option"),
             Option::<int>::None => println!("got an empty integer option"),
             _ => println!("got something else"),
-        } timeout Duration::from_seconds(5) {
+        } after Timeout::from_seconds(5) {
             println!("timeout")
         }
     }

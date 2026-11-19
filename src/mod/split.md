@@ -17,21 +17,21 @@ In `split.rs`:
 
 ```rust,ignore
 // This declaration will look for a file named `my_mod.rs` and will
-// insert its contents inside a module named `MyMod` under this scope
-mod MyMod;
+// insert its contents inside a module named `my_mod` under this scope
+mod my_mod;
 
 fn function() {
     println!("called `function()`");
 }
 
 pub fn main() {
-    MyMod::function();
+    my_mod::function();
 
     function();
 
-    MyMod::indirect_access();
+    my_mod::indirect_access();
 
-    MyMod::Nested::function();
+    my_mod::nested::function();
 }
 
 ```
@@ -42,19 +42,19 @@ In `my_mod.rs`:
 // Similarly `mod inaccessible` and `mod nested` will locate the `nested.rs`
 // and `inaccessible.rs` files and insert them here under their respective
 // modules
-mod Inaccessible;
-pub mod Nested;
+mod inaccessible;
+pub mod nested;
 
 pub fn function() {
-    println!("called `MyMod::function()`");
+    println!("called `my_mod::function()`");
 }
 
 fn private_function() {
-    println!("called `MyMod::private_function()`");
+    println!("called `my_mod::private_function()`");
 }
 
 pub fn indirect_access() {
-    print!("called `MyMod::indirect_access()`, that\n> ");
+    print!("called `my_mod::indirect_access()`, that\n> ");
 
     private_function();
 }
@@ -64,12 +64,12 @@ In `my_mod/nested.rs`:
 
 ```rust,ignore
 pub fn function() {
-    println!("called `MyMod::Nested::function()`");
+    println!("called `my_mod::nested::function()`");
 }
 
 #[allow(dead_code)]
 fn private_function() {
-    println!("called `MyMod::Nested::private_function()`");
+    println!("called `my_mod::nested::private_function()`");
 }
 ```
 
@@ -78,7 +78,7 @@ In `my_mod/inaccessible.rs`:
 ```rust,ignore
 #[allow(dead_code)]
 pub fn public_function() {
-    println!("called `MyMod::Inaccessible::public_function()`");
+    println!("called `my_mod::inaccessible::public_function()`");
 }
 ```
 
@@ -86,11 +86,11 @@ Let's check that things still work as before:
 
 ```shell
 $ patinac split.pt && patina run -m Split
-called `MyMod::function()`
+called `my_mod::function()`
 called `function()`
-called `MyMod::indirect_access()`, that
-> called `MyMod::private_function()`
-called `MyMod::Nested::function()`
+called `my_mod::indirect_access()`, that
+> called `my_mod::private_function()`
+called `my_mod::nested::function()`
 ```
 
 [visibility]: visibility.md
