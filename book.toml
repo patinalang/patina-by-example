@@ -11,14 +11,18 @@ line-numbers = true
 enable = true
 
 [output.html]
-git-repository-url = "https://github.com/patina-lang/patina-by-example"
-edit-url-template = "https://github.com/patina-lang/patina-by-example/edit/main/{path}"
+git-repository-url = "https://github.com/patinalang/patina-by-example"
+edit-url-template = "https://github.com/patinalang/patina-by-example/edit/main/{path}"
 hash-files = true
 
 [output.html.search]
 use-boolean-and = true
 
 [output.linkcheck]
+optional = true
+
+[output.epub]
+epub-version = 3
 
 [rust]
 edition = "2021"

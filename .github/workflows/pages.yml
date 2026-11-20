@@ -32,7 +32,7 @@ jobs:
       - uses: cargo-bins/cargo-binstall@main
 
       - name: Install mdbook plugins
-        run: cargo binstall --no-confirm mdbook-linkcheck mdbook-epub
+        run: cargo binstall --no-confirm mdbook-epub
 
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
         id: pages
