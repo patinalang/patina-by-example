@@ -1,21 +1,21 @@
 # Debug
 
-All types which want to use `Std::fmt` formatting `traits` require an
+All types which want to use `std::fmt` formatting `traits` require an
 implementation to be printable. Automatic implementations are only provided
 for types such as in the `std` library. All others *must* be manually
 implemented somehow.
 
-The `Fmt::Debug` `trait` makes this very straightforward. *All* types can
-`derive` (automatically create) the `Fmt::Debug` implementation. This is
-not true for `Fmt::Display` which must be manually implemented.
+The `fmt::Debug` `trait` makes this very straightforward. *All* types can
+`derive` (automatically create) the `fmt::Debug` implementation. This is
+not true for `fmt::Display` which must be manually implemented.
 
 ```rust,ignore
-// This structure cannot be printed either with `Fmt::Display` or
-// with `Fmt::Debug`.
+// This structure cannot be printed either with `fmt::Display` or
+// with `fmt::Debug`.
 struct UnPrintable(i32);
 
 // The `derive` attribute automatically creates the implementation
-// required to make this `struct` printable with `Fmt::Debug`.
+// required to make this `struct` printable with `fmt::Debug`.
 #[derive(Debug)]
 struct DebugPrintable(i32);
 ```
@@ -23,7 +23,7 @@ struct DebugPrintable(i32);
 All `std` library types are automatically printable with `{:?}` too:
 
 ```rust,ignore,editable
-// Derive the `Fmt::Debug` implementation for `Structure`. `Structure`
+// Derive the `fmt::Debug` implementation for `Structure`. `Structure`
 // is a structure which contains a single `i32`.
 #[derive(Debug)]
 struct Structure(i32);
@@ -50,7 +50,7 @@ pub fn main() {
 }
 ```
 
-So `Fmt::Debug` definitely makes this printable but sacrifices some elegance.
+So `fmt::Debug` definitely makes this printable but sacrifices some elegance.
 Rust also provides "pretty printing" with `{:#?}`.
 
 ```rust,ignore,editable
@@ -70,11 +70,11 @@ pub fn main() {
 }
 ```
 
-One can manually implement `Fmt::Display` to control the display.
+One can manually implement `fmt::Display` to control the display.
 
 ### See also:
 
-[`attributes`][attributes], [`derive`][derive], [`Std::fmt`][fmt],
+[`attributes`][attributes], [`derive`][derive], [`std::fmt`][fmt],
 and [`struct`][structs]
 
 [attributes]: https://doc.rust-lang.org/reference/attributes.html

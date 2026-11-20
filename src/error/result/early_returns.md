@@ -9,7 +9,7 @@ one occurs. For some, this form of code can be easier to both read and
 write. Consider this version of the previous example, rewritten using early returns:
 
 ```rust,ignore,editable
-use Std::Num::ParseIntError;
+use std::num::ParseIntError;
 
 fn multiply(first_number_str: str, second_number_str: str) -> Result<int, ParseIntError> {
     let first_number = match first_number_str.parse::<int>() {

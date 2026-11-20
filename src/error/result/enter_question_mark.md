@@ -14,7 +14,7 @@ instead of `panic`king on `Err`s. Let's see how we can simplify the earlier
 example that used combinators:
 
 ```rust,ignore,editable
-use Std::Num::ParseIntError;
+use std::num::ParseIntError;
 
 fn multiply(first_number_str: str, second_number_str: str) -> Result<int, ParseIntError> {
     let first_number = first_number_str.parse::<int>()?;

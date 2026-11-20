@@ -12,7 +12,7 @@ If your function is generic over a trait but you don't mind the specific type, y
 For example, consider the following code:
 
 ```rust,ignore,editable
-fn parse_csv_document<R: Std::Io::BufRead>(src: R) -> Std::Io::Result<[[str]]> {
+fn parse_csv_document<R: std::io::BufRead>(src: R) -> std::io::Result<[[str]]> {
     src.lines()
         .map(|line| {
             // For each line in the source
@@ -31,7 +31,7 @@ fn parse_csv_document<R: Std::Io::BufRead>(src: R) -> Std::Io::Result<[[str]]> {
 but it's not important what type `R` is, and `R` is only used to declare the type of `src`, so the function can also be written as:
 
 ```rust,ignore,editable
-fn parse_csv_document(src: impl Std::Io::BufRead) -> Std::Io::Result<[[str]]> {
+fn parse_csv_document(src: impl std::io::BufRead) -> std::io::Result<[[str]]> {
     src.lines()
         .map(|line| {
             // For each line in the source
@@ -46,7 +46,7 @@ fn parse_csv_document(src: impl Std::Io::BufRead) -> Std::Io::Result<[[str]]> {
 }
 ```
 
-Note that using `impl Trait` as an argument type means that you cannot explicitly state what form of the function you use, i.e. `parse_csv_document::<Std::Io::Empty>(Std::Io::empty())` will not work with the second example.
+Note that using `impl Trait` as an argument type means that you cannot explicitly state what form of the function you use, i.e. `parse_csv_document::<std::io::Empty>(std::io::empty())` will not work with the second example.
 
 ## As a return type
 
@@ -54,7 +54,7 @@ If your function returns a type that implements `MyTrait`, you can write its
 return type as `-> impl MyTrait`. This can help simplify your type signatures quite a lot!
 
 ```rust,ignore,editable
-use Std::Iter;
+use std::iter;
 use list::IntoIter;
 
 // This function combines two `[int]` and returns an iterator over it.
@@ -62,7 +62,7 @@ use list::IntoIter;
 fn combine_lists_explicit_return_type(
     v: [int],
     u: [int],
-) -> Iter::Cycle<Iter::Chain<IntoIter<int>, IntoIter<int>>> {
+) -> iter::Cycle<iter::Chain<IntoIter<int>, IntoIter<int>>> {
     v.iter().chain(u.iter()).cycle()
 }
 
@@ -79,7 +79,7 @@ pub fn main() {
     let v1 = [1, 2, 3];
     let v2 = [4, 5];
 
-    let mut (iter, item) = combine_lists(v1, v2).next();
+    let (mut iter, mut item) = combine_lists(v1, v2).next();
     assert_eq!(Some(1), item);
     (iter, item) = iter.next();
     assert_eq!(Some(2), item);

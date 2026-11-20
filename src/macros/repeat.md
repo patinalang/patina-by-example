@@ -16,7 +16,7 @@ macro_rules! find_min {
     // `$x` followed by at least one `$y,`
     ($x:expr, $($y:expr),+) => (
         // Call `find_min!` on the tail `$y`
-        Std::Cmp::min($x, find_min!($($y),+))
+        std::cmp::min($x, find_min!($($y),+))
     )
 }
 

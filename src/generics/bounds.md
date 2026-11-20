@@ -30,7 +30,7 @@ Another effect of bounding is that generic instances are allowed to access the
 
 ```rust,ignore,editable
 // A trait which implements the print marker: `{:?}`.
-use Std::Fmt::Debug;
+use std::fmt::Debug;
 
 trait HasArea {
     fn area(self) -> float;

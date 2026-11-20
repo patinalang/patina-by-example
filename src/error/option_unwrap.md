@@ -9,7 +9,7 @@ We _could_ test this against the null string (`""`) as we do with a lemonade.
 Since we're using Patina, let's instead have the compiler point out cases
 where there's no drink.
 
-An `enum` called `Option<T>` in the `Std` library is used when absence is a
+An `enum` called `Option<T>` in the `core` library is used when absence is a
 possibility. It manifests itself as one of two "options":
 
 * `Some(T)`: An element of type `T` was found

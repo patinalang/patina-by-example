@@ -4,7 +4,7 @@ Multiple bounds for a single type can be applied with a `+`. Like normal, differ
 separated with `,`.
 
 ```rust,ignore,editable
-use Std::Fmt::{Debug, Display};
+use std::fmt::{Debug, Display};
 
 fn compare_prints<T: Debug + Display>(t: T) {
     println!("Debug: `{:?}`", t);

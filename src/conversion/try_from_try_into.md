@@ -11,8 +11,8 @@ return [`Result`]s.
 [`Result`]: ../error/result.md
 
 ```rust,ignore,editable
-use Std::Convert::TryFrom;
-use Std::Convert::TryInto;
+use std::convert::TryFrom;
+use std::convert::TryInto;
 
 #[derive(Debug, PartialEq)]
 struct EvenNumber(int);

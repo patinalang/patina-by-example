@@ -45,6 +45,7 @@ pub fn main() {
         n = 30;
         // ^ERROR! External variable `n` cannot be rebound inside a try block
     } catch {
-        Throw(1) => println!("caught 1!");
+        throw(1) => println!("caught 1!"),
     }
 }
+```

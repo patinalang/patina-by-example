@@ -22,7 +22,7 @@ impl <A, D> MyTrait<A, D> for YourType where
 The `impl` in this example cannot be directly expressed without a `where` clause:
 
 ```rust,ignore,editable
-use Std::Fmt::Debug;
+use std::fmt::Debug;
 
 trait PrintInOption {
     fn print_in_option(self);

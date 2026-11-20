@@ -16,9 +16,9 @@ Patina allows us to define our own error types. In general, a "good" error type:
 * Composes well with other errors
 
 ```rust,ignore,editable
-use Std::Fmt;
+use std::fmt;
 
-type Result<T> = Std::Result::Result<T, DoubleError>;
+type Result<T> = std::result::Result<T, DoubleError>;
 
 // Define our error types. These may be customized for our error handling cases.
 // Now we will be able to write our own errors, defer to an underlying error
@@ -31,8 +31,8 @@ struct DoubleError;
 //
 // Note that we don't store any extra info about the errors. This means we can't state
 // which string failed to parse without modifying our types to carry that information.
-impl Fmt::Display for DoubleError {
-    fn fmt(self, f: Fmt::Formatter) -> Fmt::Result {
+impl fmt::Display for DoubleError {
+    fn fmt(self, f: fmt::Formatter) -> fmt::Result {
         write!(f, "invalid first item to double")
     }
 }

@@ -7,12 +7,12 @@ we can define one for the specific `Result` in question.
 At a module level, creating aliases can be particularly helpful. Errors
 found in a specific module often have the same `Err` type, so a single alias
 can succinctly define *all* associated `Results`. This is so useful that the
-`Std` library even supplies one: `Io::Result`!
+`std` library even supplies one: `io::Result`!
 
 Here's a quick example to show off the syntax:
 
 ```rust,ignore,editable
-use Std::Num::ParseIntError;
+use std::num::ParseIntError;
 
 // Define a generic alias for a `Result` with the error type `ParseIntError`.
 type AliasedResult<T> = Result<T, ParseIntError>;

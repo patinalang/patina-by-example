@@ -54,6 +54,7 @@ pub fn main() {
 the types in the source can mismatch reality with a cascading effect.
 When you're not sure, `match` the `term` instead.
 
+<!--
 ```rust,ignore
 use Elixir::ExApp::Events;
 

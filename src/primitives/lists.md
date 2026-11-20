@@ -26,7 +26,7 @@ pub fn main() {
 
     // `len` returns the count of elements in the list.
     // Internally, it does that by traversing the list and counting all elements.
-    println!("Number of elements in array: {}", xs.len());
+    println!("Number of elements in list: {}", xs.len());
 
     // The head and tail of a list can be retrieved with `head` and `tail`
     // `head` is an `Option`, and is None for empty lists; `tail` always succeeds.

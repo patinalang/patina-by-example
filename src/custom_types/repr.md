@@ -396,7 +396,7 @@ pub fn main() {
 
     // Note that `Result<T, E>` can't represent a bare `:ok` by itself,
     // but we have helpers for that.
-    println!("{:?}", Result::<(), str>::Ok(()).into::<Compat::BareOkResult>() as term);
+    println!("{:?}", Result::<(), str>::Ok(()).into::<compat::BareOkResult>() as term);
     // a"ok"
 }
 ```

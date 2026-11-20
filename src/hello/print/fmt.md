@@ -14,7 +14,7 @@ for each argument type. The most common formatting trait is `Display`, which
 handles cases where the argument type is left unspecified: `{}` for instance.
 
 ```rust,ignore,editable
-use Std::Fmt::{self, Formatter, Display};
+use std::fmt::{self, Formatter, Display};
 
 struct City {
     name: &'static str,
@@ -26,7 +26,7 @@ struct City {
 
 impl Display for City {
     // `f` is a buffer, and this method must write the formatted string into it.
-    fn fmt(self, f: Formatter) -> Fmt::Result {
+    fn fmt(self, f: Formatter) -> fmt::Result {
         let lat_c = if self.lat >= 0.0 { 'N' } else { 'S' };
         let lon_c = if self.lon >= 0.0 { 'E' } else { 'W' };
 
@@ -58,18 +58,18 @@ pub fn main() {
         Color { red: 0, green: 0, blue: 0 },
     ] {
         // Switch this to use {} once you've added an implementation
-        // for Fmt::Display.
+        // for fmt::Display.
         println!("{:?}", color);
     }
 }
 ```
 
 You can view a [full list of formatting traits][fmt_traits] and their argument
-types in the [`Std::fmt`][fmt] documentation.
+types in the [`std::fmt`][fmt] documentation.
 
 ### Activity
 
-Add an implementation of the `Fmt::Display` trait for the `Color` struct above
+Add an implementation of the `fmt::Display` trait for the `Color` struct above
 so that the output displays as:
 
 ```text
@@ -93,7 +93,7 @@ An unsigned 8-bit integer (`u8`) can only hold numbers up to 255. To cast `u8` t
 
 ### See also:
 
-[`Std::fmt`][fmt]
+[`std::fmt`][fmt]
 
 [rgb_color]: https://www.rapidtables.com/web/color/RGB_Color.html#rgb-format
 [named_parameters]: https://doc.rust-lang.org/std/fmt/#named-parameters

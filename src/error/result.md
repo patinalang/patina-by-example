@@ -62,7 +62,7 @@ representation of the error (using the `Debug` trait). The following example
 shows such a scenario and touches on aspects covered in [the following section].
 
 ```rust,ignore,editable
-use Std::Num::ParseIntError;
+use std::num::ParseIntError;
 
 pub fn main() -> Result<(), ParseIntError> {
     let number_str = "10";

@@ -1,11 +1,11 @@
 # Iterators
 
 The `Iterator` trait is used to implement iterators over collections
-such as arrays.
+such as lists.
 
 The trait requires only a method to be defined for the `next` element,
 which may be manually defined in an `impl` block or automatically
-defined (as in arrays and ranges).
+defined (as in lists and ranges).
 
 As a point of convenience for common situations, the `for` construct
 turns some collections into iterators using the `.iter()` method.

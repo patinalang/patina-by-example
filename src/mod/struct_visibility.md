@@ -10,7 +10,7 @@ mod my {
     // On BEAM side, struct `RenamedStruct` and its functions will live
     // in their own BEAM module `Elixir.Patina.MyPkg.My.RenamedStruct.beam` .
     // However, this is configurable so you can name your BEAM module anything.
-    #[beam_module("Elixir.RenamedStruct")]
+    #[module = "Elixir.RenamedStruct"]
     pub struct RenamedStruct {
     }
 

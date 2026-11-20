@@ -4,18 +4,18 @@
 
 To convert any type to a `str` is as simple as implementing the `ToStr`
 trait for the type. Rather than doing so directly, you should implement the
-`Fmt::Display` trait which automatically provides `ToStr` and
+`fmt::Display` trait which automatically provides `ToStr` and
 also allows printing the type.
 
 ```rust,ignore,editable
-use Std::Fmt;
+use std::fmt;
 
 struct Circle {
     radius: int
 }
 
-impl Fmt::Display for Circle {
-    fn fmt(self, f: Fmt::Formatter) -> Fmt::Result {
+impl fmt::Display for Circle {
+    fn fmt(self, f: fmt::Formatter) -> fmt::Result {
         write!(f, "Circle of radius {}", self.radius)
     }
 }
@@ -52,7 +52,7 @@ To obtain this functionality on a user defined type simply implement the
 `FromStr` trait for that type.
 
 ```rust,ignore,editable
-use Std::Num::ParseIntError;
+use std::num::ParseIntError;
 use str::FromStr;
 
 #[derive(Debug)]

@@ -7,16 +7,16 @@ Modules can be mapped to a file/directory hierarchy. Let's break down the
 $ tree .
 .
 ├── my_mod
-│   └── inaccessible.rs
-│   └── nested.rs
-├── my_mod.rs
-└── split.rs
+│   └── inaccessible.pt
+│   └── nested.pt
+├── my_mod.pt
+└── split.pt
 ```
 
-In `split.rs`:
+In `split.pt`:
 
 ```rust,ignore
-// This declaration will look for a file named `my_mod.rs` and will
+// This declaration will look for a file named `my_mod.pt` and will
 // insert its contents inside a module named `my_mod` under this scope
 mod my_mod;
 
@@ -36,11 +36,11 @@ pub fn main() {
 
 ```
 
-In `my_mod.rs`:
+In `my_mod.pt`:
 
 ```rust,ignore
-// Similarly `mod inaccessible` and `mod nested` will locate the `nested.rs`
-// and `inaccessible.rs` files and insert them here under their respective
+// Similarly `mod inaccessible` and `mod nested` will locate the `nested.pt`
+// and `inaccessible.pt` files and insert them here under their respective
 // modules
 mod inaccessible;
 pub mod nested;
@@ -60,7 +60,7 @@ pub fn indirect_access() {
 }
 ```
 
-In `my_mod/nested.rs`:
+In `my_mod/nested.pt`:
 
 ```rust,ignore
 pub fn function() {
@@ -73,7 +73,7 @@ fn private_function() {
 }
 ```
 
-In `my_mod/inaccessible.rs`:
+In `my_mod/inaccessible.pt`:
 
 ```rust,ignore
 #[allow(dead_code)]

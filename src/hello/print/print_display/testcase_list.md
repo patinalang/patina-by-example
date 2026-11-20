@@ -1,8 +1,8 @@
 # Testcase: List
 
-Implementing `Fmt::Display` for a structure where the elements must each be
+Implementing `fmt::Display` for a structure where the elements must each be
 handled sequentially is tricky. The problem is that each `write!` generates a
-`Fmt::Result`. Proper handling of this requires dealing with *all* the
+`fmt::Result`. Proper handling of this requires dealing with *all* the
 results. Rust provides the `?` operator for exactly this purpose.
 
 Using `?` on `write!` looks like this:
@@ -13,17 +13,17 @@ Using `?` on `write!` looks like this:
 write!(f, "{}", value)?;
 ```
 
-With `?` available, implementing `Fmt::Display` for a `Vec` is
+With `?` available, implementing `fmt::Display` for a `Vec` is
 straightforward:
 
 ```rust,ignore,editable
-use Std::fmt; // Import the `fmt` module.
+use std::fmt; // Import the `fmt` module.
 
 // Define a structure named `List` containing a `[int]`.
 struct List([int]);
 
-impl Fmt::Display for List {
-    fn fmt(self, f: Fmt::Formatter) -> Fmt::Result {
+impl fmt::Display for List {
+    fn fmt(self, f: fmt::Formatter) -> fmt::Result {
         // Extract the value using tuple indexing,
         // and create a reference to `vec`.
         let list = self.0;
@@ -39,7 +39,7 @@ impl Fmt::Display for List {
             write!(f, "{}", v)?;
         }
 
-        // Close the opened bracket and return a Fmt::Result value.
+        // Close the opened bracket and return a fmt::Result value.
         write!(f, "]")
     }
 }

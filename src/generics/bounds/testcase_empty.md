@@ -36,7 +36,7 @@ pub fn main() {
 
 ### See also:
 
-[`Std::cmp::Eq`][eq], and [`trait`s][traits]
+[`std::cmp::Eq`][eq], and [`trait`s][traits]
 
 [eq]: https://doc.rust-lang.org/std/cmp/trait.Eq.html
 [copy]: https://doc.rust-lang.org/std/marker/trait.Copy.html

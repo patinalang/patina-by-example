@@ -3,12 +3,12 @@
 An alternative to returning dynamic errors is to wrap them in your own error type.
 
 ```rust,ignore,editable
-use Std::Error;
-use Std::Error::Error;
-use Std::Num::ParseIntError;
-use Std::Fmt;
+use std::error;
+use std::error::Error;
+use std::num::ParseIntError;
+use std::fmt;
 
-type Result<T> = Std::Result::Result<T, DoubleError>;
+type Result<T> = std::result::Result<T, DoubleError>;
 
 #[derive(Debug)]
 enum DoubleError {
@@ -18,8 +18,8 @@ enum DoubleError {
     Parse(ParseIntError),
 }
 
-impl Fmt::Display for DoubleError {
-    fn fmt(self, f: Fmt::Formatter) -> Fmt::Result {
+impl fmt::Display for DoubleError {
+    fn fmt(self, f: fmt::Formatter) -> fmt::Result {
         match self {
             DoubleError::EmptyList =>
                 write!(f, "please use a list with at least one element"),
@@ -31,14 +31,14 @@ impl Fmt::Display for DoubleError {
     }
 }
 
-impl Error::Error for DoubleError {
-    fn source(self) -> Option<dyn Error::Error> {
+impl error::Error for DoubleError {
+    fn source(self) -> Option<dyn error::Error> {
         match self {
             DoubleError::EmptyList => None,
             // The cause is the underlying implementation error type. Is implicitly
-            // cast to the trait object `Error::Error`. This works because the
+            // cast to the trait object `error::Error`. This works because the
             // underlying type already implements the `Error` trait.
-            DoubleError::Parse(ref e) => Some(e),
+            DoubleError::Parse(e) => Some(e),
         }
     }
 }

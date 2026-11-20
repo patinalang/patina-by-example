@@ -4,7 +4,7 @@ The most basic way of handling mixed error types is to just embed them in each
 other.
 
 ```rust,ignore,editable
-use Std::Num::ParseIntError;
+use std::num::ParseIntError;
 
 fn double_first(list: [str]) -> Option<Result<int, ParseIntError>> {
     list.first().map(|first| {
@@ -31,7 +31,7 @@ There are times when we'll want to stop processing on errors (like with
 [`?`][enter_question_mark]) but keep going when the `Option` is `None`. The `transpose` function comes in handy to swap the `Result` and `Option`.
 
 ```rust,ignore,editable
-use Std::Num::ParseIntError;
+use std::num::ParseIntError;
 
 fn double_first(list: [str]) -> Result<Option<int>, ParseIntError> {
     let opt = list.first().map(|first| {

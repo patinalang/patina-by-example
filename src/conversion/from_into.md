@@ -21,7 +21,7 @@ let my_bin = bin::from(my_str);
 We can do something similar for defining a conversion for our own type.
 
 ```rust,ignore,editable
-use Std::Convert::From;
+use std::convert::From;
 
 #[derive(Debug)]
 struct Number {
@@ -48,7 +48,7 @@ defines how to convert a type into another type.
 Calling `into()` typically requires us to specify the result type as the compiler is unable to determine this most of the time.
 
 ```rust,ignore,editable
-use Std::Convert::Into;
+use std::convert::Into;
 
 #[derive(Debug)]
 struct Number {
@@ -77,7 +77,7 @@ If you have implemented the `From` trait for your type, `Into` will call it
 when necessary. Note, however, that the converse is not true: implementing `Into` for your type will not automatically provide it with an implementation of `From`.
 
 ```rust,ignore,editable
-use Std::Convert::From;
+use std::convert::From;
 
 #[derive(Debug)]
 struct Number {

@@ -13,7 +13,7 @@ In the example below, the straightforward `match` statement leads to code
 that is overall more cumbersome.
 
 ```rust,ignore,editable
-use Std::Num::ParseIntError;
+use std::num::ParseIntError;
 
 // With the return type rewritten, we use pattern matching without `unwrap()`.
 fn multiply(first_number_str: str, second_number_str: str) -> Result<int, ParseIntError> {
@@ -52,7 +52,7 @@ Luckily, `Option`'s `map`, `and_then`, and many other combinators are also
 implemented for `Result`.
 
 ```rust,ignore,editable
-use Std::Num::ParseIntError;
+use std::num::ParseIntError;
 
 // As with `Option`, we can use combinators such as `map()`.
 // This function is otherwise identical to the one above and reads:

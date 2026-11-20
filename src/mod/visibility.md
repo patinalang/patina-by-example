@@ -12,7 +12,7 @@ mod my_mod {
     // On BEAM side, module `my_mod` will be saved as `Elixir.Patina.MyPkg.MyMod.beam` .
     // However, this is configurable so you can name your BEAM module anything.
     // For example, to replace an Elixir `MyMod` module:
-    #![beam_module("Elixir.MyMod")]
+    #![module = "Elixir.MyMod"]
     // Note that this only changes the BEAM module name for the current
     // Patina module, and doesn't affect the names of its submodules!
 

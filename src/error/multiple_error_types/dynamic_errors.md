@@ -3,26 +3,26 @@
 A way to write simple code while preserving the original errors is to return them with [`dyn`][dyn].
 The drawback is that the underlying error type is only known at runtime and not statically determined.
 
-The stdlib helps in dynamically returning our errors by defining an `Std::Error::Error` trait.
+The stdlib helps in dynamically returning our errors by defining an `std::error::Error` trait.
 It's already implemented for all standard errors.
 
 ```rust,ignore,editable
-use Std::Error;
-use Std::Fmt;
+use std::error;
+use std::fmt;
 
-// Change the alias to use `dyn Error::Error`.
-type Result<T> = Std::Result::Result<T, dyn Error::Error>;
+// Change the alias to use `dyn error::Error`.
+type Result<T> = std::result::Result<T, dyn error::Error>;
 
 #[derive(Debug)]
 struct EmptyList;
 
-impl Fmt::Display for EmptyList {
-    fn fmt(self, f: Fmt::Formatter) -> Fmt::Result {
+impl fmt::Display for EmptyList {
+    fn fmt(self, f: fmt::Formatter) -> fmt::Result {
         write!(f, "invalid first item to double")
     }
 }
 
-impl Error::Error for EmptyList {}
+impl error::Error for EmptyList {}
 
 fn double_first(list: [str]) -> Result<int> {
     list.first()
