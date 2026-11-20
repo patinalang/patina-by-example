@@ -22,6 +22,7 @@ use-boolean-and = true
 optional = true
 
 [output.epub]
+optional = true
 epub-version = 3
 
 [rust]
