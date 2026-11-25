@@ -1,0 +1,17 @@
+Patina by Example is dual-licensed under Apache 2.0 and MIT terms.
+
+It is Copyright (c) The Patina Project Contributors.
+It is directly derived from Rust by Example
+<https://github.com/rust-lang/rust-by-example>,
+which is Copyright (c) 2014 Jorge Aparicio,
+and Copyright (c) The Rust Project Developers.
+
+Patina by Example and the Patina project is not affiliated with,
+or endorsed by, the Rust project or the Rust Foundation.
+
+The Patina by Example repository is available at
+<https://github.com/patinalang/patina-by-example>.
+
+Some files include explicit copyright notices and/or license notices.
+For full authorship information, see the version control history,
+or <https://thanks.rust-lang.org> for the Rust project.
