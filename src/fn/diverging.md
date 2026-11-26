@@ -29,8 +29,6 @@ pub fn main() {
 As opposed to this function, which will never return the control back to the caller.
 
 ```rust,ignore
-#![feature(never_type)]
-
 fn some_fn() -> ! {
     panic!("This call never returns.");
 }
