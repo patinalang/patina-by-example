@@ -24,9 +24,10 @@ pub fn main() {
         None => println!("the list is empty!"),
     }
 
-    // `len` returns the count of elements in the list.
-    // Internally, it does that by traversing the list and counting all elements.
-    println!("Number of elements in list: {}", xs.len());
+    // `count` returns the count of elements in the list.
+    // Internally, it does that by traversing the list and counting all elements,
+    // and this behaviour is why it has a different name than the usual `len()`.
+    println!("Number of elements in list: {}", xs.count());
 
     // The head and tail of a list can be retrieved with `head` and `tail`
     // `head` is an `Option`, and is None for empty lists; `tail` always succeeds.
